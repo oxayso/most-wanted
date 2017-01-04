@@ -29,19 +29,22 @@ function initMostWanted(people){
 			var Gender = prompt("What is their gender? (M=Male, F=Female)");
 		}while(!(Gender == "F" || Gender == "M"));
 
-		var Age = prompt("Approximately how old are they? (EX: 18-25)");
-			// Add dropdown menu
+		do{
+		var Age = prompt("Approximately how old are they? Please Type: '18 & Under', '18-25', '25-50' or '50+' ");
+	}while(!(Age == "18 & Under" || Age == "18-25" || Age == "25-50" || Age == "50+"));
 
 			var Height = prompt("Approximately how tall is this person? (In INCHES)");
 			// (Inches, FT, In)
 
 			var Weight = prompt("About how much does this person weigh? (In LBS)");
 
-			var EyeColor = prompt("What is their eye color?");
-			//Dropdown menu
+		do{
+			var EyeColor = prompt("What is their eye color? Options: Brown, Blue, Hazel, Green or Black");
+		}while(!(EyeColor == "Brown" || EyeColor == "Blue" || EyeColor == "Hazel" || EyeColor == "Green" || EyeColor == "Black"));
 
-			var Occupation = prompt("What is their line of work? (EX: Retail)");
+			var Occupation = prompt("What is their line of work? (EX: Nurse)");
 			// Dropdown
+
 			mainMenu(person, people);
 			break;
 			default:
@@ -52,11 +55,9 @@ function initMostWanted(people){
 	}
 
 	function getPerson (fistName, lastName, people){
-		
+			var result = people.filter(function(person){person.firstName === firstName});
+			return result;
 		}
-
-		
-
 	// if user enterd info that matches with data, alert further info for the individual
 
 	function mainMenu (person, people){
@@ -71,7 +72,7 @@ function initMostWanted(people){
 		switch(displayOption){
 
 			case "info":
-			getInfo(person, people);
+			displayInfo(person);
 
 			break;
 			case "family":
@@ -100,7 +101,7 @@ function initMostWanted(people){
 	}
 
 	function getInfo(person, people){
-		alert("person: " +person.firstname + " " +person.lastname + ".Their occupation is" + person.occupation + "___");
+		alert("person: " +person.firstname + " " +person.lastname + ".Their occupation is" +person.occupation + "___");
 		mainMenu(person, people);
 
 	}
@@ -110,14 +111,7 @@ function initMostWanted(people){
 		mainMenu(person, people);
 	}
 
-	function getPerson(firstName, lastName, people){
-		function byAge(person){
-			if(person.age >50){
-				return true;
-			} else {
-				return false;
-			}
-		}
+	function getnextofkin(person, people){
+		alert("person: " +person.lastName + " " +person.firstName);
+		mainMenu(person, people);
 	}
-
-
