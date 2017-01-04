@@ -12,9 +12,8 @@ printAllToConsole(data);
 
 
 function initMostWanted(people){
+	
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
-
-	alert("FOREWARNING: If you are ever uncertain of a question asked, please leave the section blank.");
 
 	do{	
 		var SearchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
@@ -46,60 +45,62 @@ function initMostWanted(people){
 		default:
 			alert("There was an error processing your request.");
 			initMostWanted(people);
-		}
-	}
-
-	function getPerson (fistName, lastName, people){
-
-	}
-
-	function mainMenu (person, people){
-		if(!person){
-			alert("Sorry, could not find individual.");
-			return initMostWanted(people);
-		}
-
-	}
-
-	/*var displayOption promt ("Found + person.firstname = " " + person.lastname + " . "Do you want to know their 'info', 'family' , 'next of kin', 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'.");
-
-	switch(displayOption){
-
 		break;
-		case "info":
-		getinfo(person, people);
-
-		break;
-		case "family":
-		//call getfamily()
-
-		break;
-		case "kin":
-		//call getnextofkin()
-
-		break;
-		case "descendants":
-		//call getdescendants()
-
-		break;
-		case "restart":
-		initMostWanted(people)
-
-		break;
-		case "quit":
-
-		break;
-		default;
-		return mainMenu(person, people);
-
 	}
 }
 
-function getinfo(person, people){
+function getPerson (fistName, lastName, people){
+	people.filter(function(person){
+
+
+	})
+}
+
+function mainMenu (person, people){
+	if(!person){
+		alert("Sorry, could not find individual.");
+		return initMostWanted(people);
+	}
+
+
+	var displayOption = getPerson(prompt("Found " + person.firstName + " " + person.lastName + ". " + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'."), person);
+
+		switch(displayOption){
+
+			case "info":
+			getInfo(person, people);
+
+			break;
+			case "family":
+			//call getfamily()
+
+			break;
+			case "kin":
+			//call getnextofkin()
+
+			break;
+			case "descendants":
+			//call getdescendants()
+
+			break;
+			case "restart":
+			initMostWanted(people)
+
+			break;
+			case "quit":
+
+			break;
+			default:
+			return mainMenu(person, people);
+			break;
+		}
+}
+
+function getInfo(person, people){
 	alert("person: " +person.firstname + " " +person.lastname + ".Their occupation is" + person.occupation + "___");
 	mainMenu(person, people);
 
-}*/
+}
 
 
 /*
