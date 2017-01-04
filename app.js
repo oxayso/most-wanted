@@ -14,20 +14,22 @@ printAllToConsole(data);
 function initMostWanted(people){
 	
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
-
+	
 	do{	
 		var SearchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
-	}while(!(SearchType == "name" || SearchType == "attributes")); 
+	}while(!(SearchType == "name"|| SearchType == "attributes")); 
 	switch(SearchType){
 		case "name":
-			var person = getPerson(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
-			mainMenu(person, people);
+		var person = getPerson(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
+		mainMenu(person, people);
 		break;
 		case "attributes":
 
+		do{
 			var Gender = prompt("What is their gender? (M=Male, F=Female)");
+		}while(!(Gender == "F" || Gender == "M"));
 
-			var Age = prompt("Approximately how old are they? (EX: 18-25)");
+		var Age = prompt("Approximately how old are they? (EX: 18-25)");
 			// Add dropdown menu
 
 			var Height = prompt("Approximately how tall is this person? (In INCHES)");
@@ -41,29 +43,30 @@ function initMostWanted(people){
 			var Occupation = prompt("What is their line of work? (EX: Retail)");
 			// Dropdown
 			mainMenu(person, people);
-		break;
-		default:
+			break;
+			default:
 			alert("There was an error processing your request.");
 			initMostWanted(people);
-		break;
-	}
-}
-
-function getPerson (fistName, lastName, people){
-	people.filter(function(person){
-
-
-	})
-}
-
-function mainMenu (person, people){
-	if(!person){
-		alert("Sorry, could not find individual.");
-		return initMostWanted(people);
+			break;
+		}
 	}
 
+	function getPerson (fistName, lastName, people){
+		
+		}
 
-	var displayOption = getPerson(prompt("Found " + person.firstName + " " + person.lastName + ". " + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'."), person);
+		
+
+	// if user enterd info that matches with data, alert further info for the individual
+
+	function mainMenu (person, people){
+		if(!person){
+			alert("Sorry, could not find individual.");
+			return initMostWanted(people);
+		}
+
+
+		var displayOption = getPerson(prompt("Found" + person.firstName + " " + person.lastName + "." + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'."), person);
 
 		switch(displayOption){
 
@@ -72,15 +75,15 @@ function mainMenu (person, people){
 
 			break;
 			case "family":
-			//call getfamily()
+			getFamily(person, people);
 
 			break;
 			case "kin":
-			//call getnextofkin()
+			getnextofkin(person, people);
 
 			break;
 			case "descendants":
-			//call getdescendants()
+			getdescendants(person, people);
 
 			break;
 			case "restart":
@@ -94,40 +97,27 @@ function mainMenu (person, people){
 			return mainMenu(person, people);
 			break;
 		}
-}
+	}
 
-function getInfo(person, people){
-	alert("person: " +person.firstname + " " +person.lastname + ".Their occupation is" + person.occupation + "___");
-	mainMenu(person, people);
+	function getInfo(person, people){
+		alert("person: " +person.firstname + " " +person.lastname + ".Their occupation is" + person.occupation + "___");
+		mainMenu(person, people);
 
-}
+	}
+
+	function getFamily(person, people){
+		alert("person: " +person.lastName + " " +person.currentSpouse);
+		mainMenu(person, people);
+	}
+
+	function getPerson(firstName, lastName, people){
+		function byAge(person){
+			if(person.age >50){
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 
 
-/*
-
-
-	// then pass that info to the respective function.
-	var result = getPersonInfo("J", "T")
-
-	// once the search is done, pass the results to the responder function
-	responder(result);
-}
-
-function responder(results){
-	// results may be a list of strings, an object, or a single string.
-	alert(results);
-}
-
-function getPersonInfo(firstname, lastname){
-	var result = "This will be the information for whoever you searched for";
-	// return the object of a person
-	return result;
-}
-
-function getFamily(){
-	// return an array containing the members of the person's family
-	// the array should contain each person's unmodified object
-}
-
-// there will be much more here, and some of the code above will certainly change
-*/
