@@ -62,69 +62,99 @@ function initMostWanted(people){
 			alert("There was an error processing your request.");
 			initMostWanted(people);
 		break;
-		}
+	}
+}
+
+function getPerson(firstName, lastName, people){
+	var listOfPeople = people.filter(function(person){
+		return (person.firstName.toLowerCase() === firstName) && (person.lastName.toLowerCase() === lastName);
+	});
+	return listOfPeople;
+}
+
+function mainMenu(person, people){
+	if(!person){
+		alert("Sorry, could not find individual.");
+		return initMostWanted(people);
 	}
 
-	function getPerson(firstName, lastName, people){
-		var listOfPeople = people.filter(function(person){
-			return (person.firstName.toLowerCase() === firstName) && (person.lastName.toLowerCase() === lastName);
-		});
-		return listOfPeople;
-	}
 
-	function mainMenu (person, people){
-		if(!person){
-			alert("Sorry, could not find individual.");
-			return initMostWanted(people);
-		}
+	var displayOption = prompt("Found " + person.firstName + " " + person.lastName + ". " + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, type 'restart' or 'quit'.");
 
+	switch(displayOption){
 
-		var displayOption = prompt("Found " + person.firstName + " " + person.lastName + ". " + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, type 'restart' or 'quit'.");
+		case "info":
+			getPersonInfo(person, people);
 
-		switch(displayOption){
-
-			case "info":
-			getPersonInfo(people);
-
-				break;
-			case "family":
+		break;
+		case "family":
 			getFamily(person, people);
 
-				break;
-			case "kin":
+		break;
+		case "kin":
 			getNextOfKin(person, people);
 
-				break;
-			case "descendants":
+		break;
+		case "descendants":
 			getDescendants(person, people);
 
-				break;
-			case "restart":
-			initMostWanted(people);
+		break;
+		case "restart":
+			initMostWanted(person, people);
 
-				break;
-			case "quit":
+		break;
+		case "quit":
 
-				break;
-			default:
+		break;
+		default:
 			alert("There was an error processing your request.");
 			return mainMenu(person, people);
-				break;
-		}
+		break;
 	}
+}
 
-	function getPersonInfo(person, people){
-		alert("Name: " +person.firstName + " " +person.lastName + ". Their occupation is " +person.occupation + "___");
-		mainMenu(person, people);
 
-	}
+function getPersonInfo(person, people){
+	alert("Name: " +person.firstName + " " +person.lastName + ". Gender: " +person.gender + ". Their occupation is: " +person.occupation+ ".");
+	alert("Birthday: " +person.dob + ". Height: " +person.height + " inches. Weight: " +person.weight + " lbs. Eye Color: " +person.eyeColor+ ".");
+	mainMenu(person, people);
 
-	function getFamily(person, people){
-		alert("Name: " +person.lastName + " " +person.currentSpouse);
-		mainMenu(person, people);
-	}
+}
 
-	function getNextOfKin(person, people){
-		alert("Name: " +person.lastName + " " +person.firstName);
-		mainMenu(person, people);
-	}
+function getFamily(person, people){
+	//var spouse = getPersonById(person.currentSpouse)
+	alert("Family Name: " +person.lastName + ". Current Spouse: " +   //getPersonById(person.currentSpouse).firstName
+		person.currentSpouse+ ". Parent(s): " +person.parents);
+	mainMenu(person, people);
+}
+
+function getNextOfKin(person, people){
+	alert("Name: " +person.lastName + " " +person.firstName);
+	mainMenu(person, people);
+}
+
+
+	
+
+
+
+
+
+function getPersonById(person, people){
+	mainMenu(person, people);
+
+}
+
+
+
+people.map(function(person) { return { “id”: person.tofirstName()};})
+
+
+
+
+
+
+
+
+
+
