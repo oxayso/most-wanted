@@ -56,7 +56,7 @@ function initMostWanted(people){
 
 	function getPerson (firstName, lastName, people){
 			var result = people.filter(function(person){(person.firstName === firstName) && (person.lastName === lastName)});
-			return result;	
+			return getPersonInfo(people);	
 		}
 	// if user enterd info that matches with data, alert further info for the individual
 
@@ -67,12 +67,12 @@ function initMostWanted(people){
 		}
 
 
-		var displayOption = prompt("Found" + person.firstName + " " + person.lastName + "." + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'.");
+		var displayOption = prompt("Found " + person.firstName + " " + person.lastName + ". " + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, type 'restart' or 'quit'.");
 
 		switch(displayOption){
 
 			case "info":
-			displayInfo(person);
+			getPersonInfo(people);
 
 			break;
 			case "family":
@@ -80,38 +80,39 @@ function initMostWanted(people){
 
 			break;
 			case "kin":
-			getnextofkin(person, people);
+			getNextOfKin(person, people);
 
 			break;
 			case "descendants":
-			getdescendants(person, people);
+			getDescendants(person, people);
 
 			break;
 			case "restart":
-			initMostWanted(people)
+			initMostWanted(people);
 
 			break;
 			case "quit":
 
 			break;
 			default:
+			alert("There was an error processing your request.");
 			return mainMenu(person, people);
 			break;
 		}
 	}
 
-	function getInfo(person, people){
-		alert("person: " +person.firstname + " " +person.lastname + ".Their occupation is" +person.occupation + "___");
+	function getPersonInfo(person, people){
+		alert("Name: " +person.firstName + " " +person.lastName + ". Their occupation is " +person.occupation + "___");
 		mainMenu(person, people);
 
 	}
 
 	function getFamily(person, people){
-		alert("person: " +person.lastName + " " +person.currentSpouse);
+		alert("Name: " +person.lastName + " " +person.currentSpouse);
 		mainMenu(person, people);
 	}
 
-	function getnextofkin(person, people){
-		alert("person: " +person.lastName + " " +person.firstName);
+	function getNextOfKin(person, people){
+		alert("Name: " +person.lastName + " " +person.firstName);
 		mainMenu(person, people);
 	}
