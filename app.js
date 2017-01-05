@@ -54,9 +54,9 @@ function initMostWanted(people){
 		}
 	}
 
-	function getPerson (fistName, lastName, people){
-			var result = people.filter(function(person){person.firstName === firstName});
-			return result;
+	function getPerson (firstName, lastName, people){
+			var result = people.filter(function(person){(person.firstName === firstName) && (person.lastName === lastName)});
+			return result;	
 		}
 	// if user enterd info that matches with data, alert further info for the individual
 
@@ -67,7 +67,7 @@ function initMostWanted(people){
 		}
 
 
-		var displayOption = getPerson(prompt("Found" + person.firstName + " " + person.lastName + "." + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'."), person);
+		var displayOption = prompt("Found" + person.firstName + " " + person.lastName + "." + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, click 'restart' or 'quit'.");
 
 		switch(displayOption){
 
