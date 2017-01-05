@@ -17,7 +17,7 @@ function initMostWanted(people){
 	
 	do{	
 		var SearchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
-	}while(!(SearchType == "name"|| SearchType == "attributes")); 
+	}while(!(SearchType == "name" || SearchType == "attributes")); 
 	switch(SearchType){
 		case "name":
 			var listOfPeople = getPerson(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
@@ -25,6 +25,13 @@ function initMostWanted(people){
 				mainMenu(listOfPeople[0], people);
 			} else {
 				alert("Did not find anyone matching those perameters.");
+				do{
+				var nameRestart = prompt("Would you like to restart? (If so, type 'yes'. If not, type 'no')");
+				}while(!(nameRestart == "yes" || nameRestart == "no"));
+				if(nameRestart.toLowerCase() == "yes")
+					return initMostWanted(people);
+				if(nameRestart.toLowerCase() == "no")
+					window.close();
 			}
 		break;
 		case "attributes":
@@ -60,7 +67,7 @@ function initMostWanted(people){
 
 	function getPerson(firstName, lastName, people){
 		var listOfPeople = people.filter(function(person){
-			return (person.firstName === firstName) && (person.lastName === lastName);
+			return (person.firstName.toLowerCase() === firstName) && (person.lastName.toLowerCase() === lastName);
 		});
 		return listOfPeople;
 	}
