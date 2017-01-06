@@ -121,15 +121,27 @@ function getPersonInfo(person, people){
 
 }
 
-function getFamily(person, people){
-	var parents = person.parents;
-	var kids = 
-	var spouse = person.currentSpouse;
-	var siblings = 
+function getDescendants(person, people){
 
-	alert("Family Name: " +person.lastName + ". Current Spouse: " + getPersonById(person.currentSpouse).firstName
-	 + ". Parent(s): " +getPersonById(person.parents).firstName);
+}
+
+function getFamily(person, people){
+	//var parents = person.parents;
+	if(person.parents.length > 0)
+		alert("Parents: " +getPersonById(person.parents[0].firstName, people)+ " and " +getPersonById(parents[1].firstName, people)+ ".");
+	else if(person.parents.length = 0)
+		alert("Parents: " +getPersonById(person.parents[0].firstName, people)+ ".");
+	else if(person.parents.length < 0)
+		alert("No parents.")
+
+	//var kids = 
+
+	var spouse = person.currentSpouse;
+	alert("Spouse: " +getPersonById(person.currentSpouse).firstName);
+
+	//var siblings = 
 	mainMenu(person, people);
+
 }
 
 function getNextOfKin(person, people){
@@ -146,12 +158,3 @@ function getPersonById(person, people){
 	var idSwitch = people.map(function(person){return "id:" + person.id + "firstName:" + person.firstName });
 	return idSwitch;
 }
-
-
-
-
-
-
-
-
-
