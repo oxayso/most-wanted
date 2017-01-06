@@ -117,10 +117,10 @@ function mainMenu(person, people){
 
 
 function getPersonInfo(person, people){
-	alert("Name: " +person.firstName + " " +person.lastName + "\n" + "Gender: " +person.gender +
-	 "\n" + "Their occupation is: "+ person.occupation + "\n" + "Birthday: " +person.dob +
-	  "\n" + "Height: " +person.height + " inches" + "\n" + "Weight: " +person.weight + " lbs." +
-	  "\n"+ "Eye Color: " +person.eyeColor);
+	alert("Name: " +person.firstName + " " +person.lastName + "\nGender: " +person.gender+
+	 "\nTheir occupation is: "+ person.occupation + "\nBirthday: " +person.dob +
+	  "\nHeight: " +person.height + " inches" + "\nWeight: " +person.weight + " lbs." +
+	  "\nEye Color: " +person.eyeColor);
 	mainMenu(person, people);
 
 }
@@ -130,7 +130,7 @@ function getDescendants(person, people){
 }
 
 function getFamily(person, people){
-	//var idSwitch = getPersonById(idSwitch.parents, people).firstName   //person.parents;
+	
 	
 
 
