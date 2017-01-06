@@ -31,7 +31,7 @@ function initMostWanted(people){
 				if(nameRestart.toLowerCase() == "yes")
 					return initMostWanted(people);
 				if(nameRestart.toLowerCase() == "no")
-					window.close();
+					break;
 			}
 		break;
 		case "attributes":
@@ -106,7 +106,6 @@ function mainMenu(person, people){
 
 		break;
 		case "quit":
-		return;
 		break;
 		default:
 			alert("There was an error processing your request.");
