@@ -79,7 +79,9 @@ function mainMenu(person, people){
 	}
 
 
-	var displayOption = prompt("Found " + person.firstName + " " + person.lastName + ". " + "Do you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like. Otherwise, type 'restart' or 'quit'.");
+	var displayOption = prompt("Found " + person.firstName + " " + person.lastName +
+	 "\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
+	  "\n\nOtherwise, type 'restart' or 'quit'.");
 
 	switch(displayOption){
 
@@ -100,7 +102,7 @@ function mainMenu(person, people){
 
 		break;
 		case "restart":
-			initMostWanted(person, people);
+			initMostWanted(person, people); 
 
 		break;
 		case "quit":
@@ -115,8 +117,10 @@ function mainMenu(person, people){
 
 
 function getPersonInfo(person, people){
-	alert("Name: " +person.firstName + " " +person.lastName + ". Gender: " +person.gender + ". Their occupation is: " +person.occupation+ ".");
-	alert("Birthday: " +person.dob + ". Height: " +person.height + " inches. Weight: " +person.weight + " lbs. Eye Color: " +person.eyeColor+ ".");
+	alert("Name: " +person.firstName + " " +person.lastName + "\n" + "Gender: " +person.gender +
+	 "\n" + "Their occupation is: "+ person.occupation + "\n" + "Birthday: " +person.dob +
+	  "\n" + "Height: " +person.height + " inches" + "\n" + "Weight: " +person.weight + " lbs." +
+	  "\n"+ "Eye Color: " +person.eyeColor);
 	mainMenu(person, people);
 
 }
@@ -126,28 +130,22 @@ function getDescendants(person, people){
 }
 
 function getFamily(person, people){
-	var idSwitch = getPersonById(idSwitch.parents, people).firstName   //person.parents;
-	/*if(person.parents.length > 0)
-		alert("Parents: " +getPersonById(person.parents[0].firstName, people)+ " and " +getPersonById(parents[1].firstName, people)+ ".");
-	else if(person.parents.length = 0)
-		alert("Parents: " +getPersonById(person.parents[0].firstName, people)+ ".");
-	else if(person.parents.length < 0)
-		alert("No parents.")
-	*/
+	//var idSwitch = getPersonById(idSwitch.parents, people).firstName   //person.parents;
+	
 
 
 	//var kids = 
 
-	var spouse = person.currentSpouse;
+	//var spouse = person.currentSpouse;
 	
 
 	//var siblings = 
-	alert("-" +person.lastName+ " Family- Parents: " +idSwitch);
+	alert("-The " +person.lastName+ " Family- \nParents: " +person.parents+ "\nSpouse: " +person.currentSpouse+ "\nSiblings: " + "\nKids: ");
 	mainMenu(person, people);
 }
 
 function getNextOfKin(person, people){
-	alert("Name: " +person.lastName + " " +person.firstName);
+	alert("Name: " +person.lastName+ " " +person.firstName);
 	mainMenu(person, people);
 }
 
@@ -157,6 +155,6 @@ function getNextOfKin(person, people){
 
 
 function getPersonById(person, people){
-	var idSwitch = people.map(function(person){return "id:" + person.id + "firstName:" + person.firstName });
-	return idSwitch;
+	//var personFinder = people.;
+	//return personFinder;
 }
