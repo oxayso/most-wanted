@@ -104,7 +104,7 @@ function mainMenu(person, people){
 
 		break;
 		case "quit":
-
+		return;
 		break;
 		default:
 			alert("There was an error processing your request.");
@@ -126,22 +126,24 @@ function getDescendants(person, people){
 }
 
 function getFamily(person, people){
-	//var parents = person.parents;
-	if(person.parents.length > 0)
+	var idSwitch = getPersonById(idSwitch.parents, people).firstName   //person.parents;
+	/*if(person.parents.length > 0)
 		alert("Parents: " +getPersonById(person.parents[0].firstName, people)+ " and " +getPersonById(parents[1].firstName, people)+ ".");
 	else if(person.parents.length = 0)
 		alert("Parents: " +getPersonById(person.parents[0].firstName, people)+ ".");
 	else if(person.parents.length < 0)
 		alert("No parents.")
+	*/
+
 
 	//var kids = 
 
 	var spouse = person.currentSpouse;
-	alert("Spouse: " +getPersonById(person.currentSpouse).firstName);
+	
 
 	//var siblings = 
+	alert("-" +person.lastName+ " Family- Parents: " +idSwitch);
 	mainMenu(person, people);
-
 }
 
 function getNextOfKin(person, people){
