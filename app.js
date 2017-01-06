@@ -122,9 +122,9 @@ function getPersonInfo(person, people){
 }
 
 function getFamily(person, people){
-	//var spouse = getPersonById(person.currentSpouse)
-	alert("Family Name: " +person.lastName + ". Current Spouse: " +   //getPersonById(person.currentSpouse).firstName
-		person.currentSpouse+ ". Parent(s): " +person.parents);
+	var idSwitch = getPersonById(person, people);
+	alert("Family Name: " +person.lastName + ". Current Spouse: " + getPersonById(person.currentSpouse).firstName
+	 + ". Parent(s): " +getPersonById(person.parents).firstName);
 	mainMenu(person, people);
 }
 
@@ -138,17 +138,10 @@ function getNextOfKin(person, people){
 
 
 
-
-
 function getPersonById(person, people){
-	mainMenu(person, people);
-
+	var idSwitch = people.map(function(person){return "id:" + person.id + "firstName:" + person.firstName });
+	return idSwitch;
 }
-
-
-
-people.map(function(person) { return { “id”: person.tofirstName()};})
-
 
 
 
