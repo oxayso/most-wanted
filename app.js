@@ -122,7 +122,11 @@ function getPersonInfo(person, people){
 }
 
 function getFamily(person, people){
-	var idSwitch = getPersonById(person, people);
+	var parents = person.parents;
+	var kids = 
+	var spouse = person.currentSpouse;
+	var siblings = 
+
 	alert("Family Name: " +person.lastName + ". Current Spouse: " + getPersonById(person.currentSpouse).firstName
 	 + ". Parent(s): " +getPersonById(person.parents).firstName);
 	mainMenu(person, people);
