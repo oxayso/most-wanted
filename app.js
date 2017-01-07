@@ -90,7 +90,7 @@ function mainMenu(person, people){
 
 		break;
 		case "family":
-			getFamily(person, people);
+			displayFamily(person, people);
 
 		break;
 		case "kin":
@@ -128,10 +128,15 @@ function getDescendants(person, people){
 
 }
 
-function getFamily(person, people){
-	
 	
 
+function displayFamily(person, people){
+
+	var parents = getPersonById(person.parents[0], people);
+	//if(parentsById[0] > 0)
+		//familyAlert(person, parentsById[0], people);
+
+	var spouse = getPersonById(person.currentSpouse, people);
 
 	//var kids = 
 
@@ -139,7 +144,7 @@ function getFamily(person, people){
 	
 
 	//var siblings = 
-	alert("-The " +person.lastName+ " Family- \nParents: " +person.parents+ "\nSpouse: " +person.currentSpouse+ "\nSiblings: " + "\nKids: ");
+	var personById = alert("-The " +person.lastName+ " Family- \nParents: " +parents.firstName+ "\nSpouse: " +spouse.firstName+ "\nSiblings: " + "\nKids: ");
 	mainMenu(person, people);
 }
 
@@ -153,7 +158,9 @@ function getNextOfKin(person, people){
 
 
 
-function getPersonById(person, people){
-	//var personFinder = people.;
-	//return personFinder;
+function getPersonById(id, people){
+	var personById = people.filter(function(person){
+		return (person.id === id);
+	});
+	return personById[0]  	;
 }
