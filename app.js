@@ -114,7 +114,6 @@ function mainMenu(person, people){
 	}
 }
 
-
 function displayPersonInfo(person, people){
 	alert("Name: " +person.firstName + " " +person.lastName + "\nGender: " +person.gender+
 	 "\nTheir occupation is: "+ person.occupation + "\nBirthday: " +person.dob +
@@ -124,36 +123,6 @@ function displayPersonInfo(person, people){
 
 }
 
-function displayDescendants(person, people){
-
-}
-
-/*function getParents(person, people){
-	
-
-	for(var i = 0; i < people.length; i++){
-		if( (person.parents[0] && people[i].id == person.parents[0].id) || people[i].id == person.parents[1].id){
-			var parents = people[i].firstName +" "+ people[i].lastName;
-		}else{
-			var parents = "None";
-		}
-	}
-
-	//var parents = people[i].firstName +" "+ people[i].lastName
-
-
-	return parents;
-}
-*/
-
-/*function filterParent(person, people){
-	var filteredParents = people.filter(function(parent){
-		return (parent.id === person.parent[0].id);
-	});
-	return filteredParents;
-}
-*/
-
 function displayFamily(person, people){
 
 	var parents = getParents(person.parents, people);
@@ -161,7 +130,7 @@ function displayFamily(person, people){
 	var spouse = getSpouse(person.currentSpouse, people);
 
 	//var kids = 
-	
+
 	//var siblings = 
 
 	alert("-The " +person.lastName+ " Family- \nParents: " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKids: ");
@@ -173,12 +142,11 @@ function getParents(parentsId, people){
 		return "None";
 	}
 	else{
+		var parents =[];
 		for(var i = 0; i < parentsId.length; i++){
-			if(parentsId[0]){
-				var parents = people.filter(function(person){
-					return (person.id === parentsId[i]);
-				});
-			}
+			parents.push(people.filter(function(person){
+				return (person.id === parentsId[i]);
+			})[0]);
 		}
 		if(parents.length == 2){
 			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName
@@ -202,11 +170,8 @@ function getSpouse(spouseId, people){
 	}
 }
 
-
 function displayNextOfKin(person, people){
-	alert("Name: " +person.lastName+ " " +person.firstName);
+	alert();
 	mainMenu(person, people);
 }
-
-
 
