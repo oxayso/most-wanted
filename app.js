@@ -132,8 +132,7 @@ function displayDescendants(person, people){
 	
 
 	for(var i = 0; i < people.length; i++){
-		if( (person.parents[0] && people.filter(function(parent){return (parent.id === person.parent[0].id);}); == person.parents[0].id) || 
-			people.filter(function(parent){return (parent.id === person.parent[].id)}); == person.parents[1].id){
+		if( (person.parents[0] && people[i].id == person.parents[0].id) || people[i].id == person.parents[1].id){
 			var parents = people[i].firstName +" "+ people[i].lastName;
 		}else{
 			var parents = "None";
@@ -157,20 +156,52 @@ function displayDescendants(person, people){
 
 function displayFamily(person, people){
 
-	//var parents = getPersonById(person.parents[0], people);
-		/*if(parentsById > 1)
-			var parents = alert("\nParents: " + parents.getPersonById(person.parents[0], people).firstName
-		*/
+	var parents = getParents(person.parents, people);
 
-	var spouse = getPersonById(person.currentSpouse, people);
+	var spouse = getSpouse(person.currentSpouse, people);
 
 	//var kids = 
 	
 	//var siblings = 
 
-	alert("-The " +person.lastName+ " Family- \nParents: " +/*getParents(person,people)+*/ "\nSpouse: " +spouse.firstName+ " " +spouse.lastName+ "\nSiblings: " + "\nKids: ");
+	alert("-The " +person.lastName+ " Family- \nParents: " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKids: ");
 	mainMenu(person, people);
 }
+
+function getParents(parentsId, people){
+	if(parentsId.length == 0){
+		return "None";
+	}
+	else{
+		for(var i = 0; i < parentsId.length; i++){
+			if(parentsId[0]){
+				var parents = people.filter(function(person){
+					return (person.id === parentsId[i]);
+				});
+			}
+		}
+		if(parents.length == 2){
+			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName
+		}else{
+			return parents[0].firstName +" "+ parents[0].lastName
+		}
+		
+	}
+
+} 
+
+
+function getSpouse(spouseId, people){
+	var spouseById = people.filter(function(person){
+			return (person.id === spouseId);
+	});
+	if(spouseById[0]){
+		return spouseById[0].firstName +" "+ spouseById[0].lastName;
+	}else{
+		return "None";
+	}
+}
+
 
 function displayNextOfKin(person, people){
 	alert("Name: " +person.lastName+ " " +person.firstName);
@@ -178,9 +209,4 @@ function displayNextOfKin(person, people){
 }
 
 
-function getPersonById(id, people){
-	var personById = people.filter(function(person){
-		return (person.id === id);
-	});
-	return personById[0];
-}
+
