@@ -129,11 +129,11 @@ function displayFamily(person, people){
 
 	var spouse = getSpouse(person.currentSpouse, people);
 
-	//var kids = 
+	//var kids = getKids(person, people);
 
 	//var siblings = 
 
-	alert("-The " +person.lastName+ " Family- \nParents: " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKids: ");
+	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKid(s): " /*kids*/ );
 	mainMenu(person, people);
 }
 
@@ -149,9 +149,9 @@ function getParents(parentsId, people){
 			})[0]);
 		}
 		if(parents.length == 2){
-			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName
+			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
 		}else{
-			return parents[0].firstName +" "+ parents[0].lastName
+			return parents[0].firstName +" "+ parents[0].lastName;
 		}
 		
 	}
@@ -170,8 +170,33 @@ function getSpouse(spouseId, people){
 	}
 }
 
+/*function getKids(person, people){
+	var kids = [];
+	for(var i =  0; i = kids.length+1; i--){
+		kids.push(people.filter(function(kids){
+			return (person.id === kids.parent);
+		})[0]);
+	}
+	if(kids.length == 0){
+		return "None";
+	}else if( kids.length == 1){
+		return kids[0].firstName +" "+ kids[0].lastName; 
+	}else if(kids.length == 2){
+		return kids[0].firstName +" "+ kids[0].lastName + " and " + kids[1].firstName +" "+ kids[1].lastName;
+	}else if(kids.length == 3){
+		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
+		 ", and " + kids[2].firstName +" "+ kids[2].lastName;
+	}
+}*/
+
 function displayNextOfKin(person, people){
 	alert();
 	mainMenu(person, people);
 }
 
+function displayDescendants(person, people){
+	var getDescendants = 
+
+	alert("Descendants: \nChildren: \nGrandchildren:" );
+	mainMenu(person, people);
+}
