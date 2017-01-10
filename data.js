@@ -133,7 +133,7 @@ var data = [
 		"id": 878013758,
 	  "firstName": "Jill",
 	  "lastName": "Pafoy",
-	  "gender": "Bob",
+	  "gender": "female",
 	  "dob": "2/8/1972",
 	  "height": 74,
 	  "weight": 118,
