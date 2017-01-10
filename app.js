@@ -65,9 +65,13 @@ function initMostWanted(people){
 	}
 }
 
+/*function searchByAttributes(person, people){
+
+}*/
+
 function getPerson(firstName, lastName, people){
 	var findPerson = people.filter(function(person){
-		return (person.firstName.toLowerCase() === firstName) && (person.lastName.toLowerCase() === lastName);
+		return (person.firstName.toUpperCase() === firstName.toUpperCase()) && (person.lastName.toUpperCase() === lastName.toUpperCase());
 	});
 	return findPerson;
 }
@@ -130,10 +134,13 @@ function displayFamily(person, people){
 	var spouse = getSpouse(person.currentSpouse, people);
 
 	var kids = getKids(person, people);
+	//for(var i = 0; i < kids.length; i++){
+		//alert(kids[i].firstName + " " + kids[i].lastName);
+	//}
 
 	//var siblings = 
 
-	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKid(s): " + kids[0].firstName + " " + kids[0].lastName );
+	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKid(s): " + kids);
 	mainMenu(person, people);
 }
 
@@ -180,17 +187,34 @@ function getKids(parent, people){
 		}
 		return false;
 	});
-	return kids;
+	//return kids;
+	if(kids.length == 4){
+		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
+		", " + kids[2].firstName +" "+ kids[2].lastName + ", and " + kids[3].firstName +" "+ kids[3].lastName;
+	}else if(kids.length == 3){
+		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
+		", and " + kids[2].firstName +" "+ kids[2].lastName;
+	}else if(kids.length == 2){
+		return kids[0].firstName +" "+ kids[0].lastName + ", and " + kids[1].firstName +" "+ kids[1].lastName;
+	}else if(kids.length == 1){
+		return kids[0].firstName +" "+ kids[0].lastName;
+	}else{
+		return "None"
+	}
 }
 
 function displayNextOfKin(person, people){
-	alert();
+	alert("Next of Kin: ");
 	mainMenu(person, people);
 }
 
 function displayDescendants(person, people){
-	var getDescendants = 
-
-	alert("Descendants: \nChildren: \nGrandchildren:" );
+	alert("-Descendants- \nGrandchild(ren): \nGrandparent(s): \nGreat Granchild(ren): \nGreat Grantparent(s):" );
 	mainMenu(person, people);
 }
+
+
+
+
+
+
