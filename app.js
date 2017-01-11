@@ -1,16 +1,3 @@
-
-/*  Remove this from your final submission
-function printAllToConsole(dataObj){
-	for (var key in dataObj) {
-		if (dataObj.hasOwnProperty(key)) {
-			console.log(key + " -> " + JSON.stringify(dataObj[key]));
-		}
-	}
-}
-printAllToConsole(data);
-*/
-
-
 function initMostWanted(people){
 	
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
@@ -45,7 +32,7 @@ function initMostWanted(people){
 			}while(!(Age == "18 & Under" || Age == "18-25" || Age == "25-50" || Age == "50+"));
 
 				var Height = prompt("Approximately how tall is this person? (In INCHES)");
-				// (Inches, FT, In)
+				
 
 				var Weight = prompt("About how much does this person weigh? (In LBS)");
 
@@ -54,7 +41,7 @@ function initMostWanted(people){
 			}while(!(EyeColor == "Brown" || EyeColor == "Blue" || EyeColor == "Hazel" || EyeColor == "Green" || EyeColor == "Black"));
 
 				var Occupation = prompt("What is their line of work? (EX: Nurse)");
-				// Dropdown
+				
 
 				mainMenu(person, people);
 		break;
@@ -204,6 +191,7 @@ function displayKids(person, people){
 		return "None"
 	}
 }
+
 function getKids(parent, people){
 	var kids = people.filter(function(person){
 		for(var i =0; i <person.parents.length; i++){
@@ -278,7 +266,7 @@ function displayDescendants(person, people){
 	mainMenu(person, people);
 }
 
-/*
+
 function displayGc(person, people){
 
 	var kidsArray = getKids(person,people);
@@ -318,11 +306,3 @@ function getGc(x, kidsArray, people, results = []){
 	}
 	return results;
 }
-
-
-
-function calcAge(person, people){
-	var age = person.dob(byAge);
-	return person.dob - ((Date.now() 
-}
-*/
