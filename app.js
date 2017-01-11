@@ -135,9 +135,7 @@ function displayFamily(person, people){
 
 	var kids = getKids(person, people);
 
-	//var siblings = 
-
-	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " + "\nKid(s): " + kids);
+	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
 	mainMenu(person, people);
 }
 
@@ -184,6 +182,7 @@ function getKids(parent, people){
 		}
 		return false;
 	});
+
 	if(kids.length == 4){
 		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
 		", " + kids[2].firstName +" "+ kids[2].lastName + ", and " + kids[3].firstName +" "+ kids[3].lastName;
@@ -198,6 +197,29 @@ function getKids(parent, people){
 		return "None"
 	}
 }
+
+function getSiblings(person, people){
+	var siblings = people.filter(function(individual){
+		if (individual.parents.includes(person.parents[0]) || individual.parents.includes(person.parents[1])){
+			return true;
+		} else{
+			return false;
+		}
+		});
+	if(siblings.length == 4){
+		return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
+		", " + siblings[2].firstName +" "+ siblings[2].lastName + ", and " + siblings[3].firstName +" "+ siblings[3].lastName;
+	}else if(siblings.length == 3){
+		return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
+		", and " + siblings[2].firstName +" "+ siblings[2].lastName;
+	}else if(siblings.length == 2){
+		return siblings[0].firstName +" "+ siblings[0].lastName + ", and " + siblings[1].firstName +" "+ siblings[1].lastName;
+	}else if(siblings.length == 1){
+		return siblings[0].firstName +" "+ siblings[0].lastName;
+	}else{
+		return "None"
+	}
+}	
 
 function displayNextOfKin(person, people){
 	alert("Next of Kin: ");
