@@ -135,6 +135,8 @@ function displayFamily(person, people){
 
 	var kids = getKids(person, people);
 
+	var siblings = getSiblings(person, people);
+
 	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
 	mainMenu(person, people);
 }
@@ -240,7 +242,7 @@ function getGc(x, kids, people){
 	var gC = people.filter(function(person){
 		for(var i =0; i <person.parents.length; i++){
 			if(kids[x].id == person.parents[i]){
-				return true getGc(x++, kids, people);
+				return getGc(x+1, kids, people);
 			};
 		}
 		return false;
