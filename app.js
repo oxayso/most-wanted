@@ -149,10 +149,23 @@ function displayParents(person, people){
 
 	var parents = getParents(person.parents, people);
 
+	/*
 	if(parents.length == 2){
 			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
 		}else{
 			return parents[0].firstName +" "+ parents[0].lastName;
+		}
+	}
+	*/
+	for(var i = 0; i <= gC.length; i++){
+		if(i=0){
+			return parents[i].firstName + " " + parents[i].lastName;
+		}else if((i > 0 ) && (i != gC.length)){
+			return + ", " + parents[i].firstName + " " + parents[i].lastName;
+		}else if(i == gC.length){
+			return + ", and " + parents[i].firstName + " " + parents[i].lastName;
+		}else{
+			return "None"
 		}
 	}
 }
@@ -226,7 +239,7 @@ function displaySiblings(person, people){
 			return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
 			", and " + siblings[2].firstName +" "+ siblings[2].lastName;
 		}else if(siblings.length == 2){
-			return siblings[0].firstName +" "+ siblings[0].lastName + ", and " + siblings[1].firstName +" "+ siblings[1].lastName;
+			return siblings[0].firstName +" "+ siblings[0].lastName + " and " + siblings[1].firstName +" "+ siblings[1].lastName;
 		}else if(siblings.length == 1){
 			return siblings[0].firstName +" "+ siblings[0].lastName;
 		}else{
@@ -266,28 +279,23 @@ function getNextOfKin(person, people){
 	}
 }
 
+
 function displayDescendants(person, people){
 
-	var kids = getKids(person, people);
+	var kids = displayKids(person, people);
 
-	var grandchildren = getGc(0, kids, people);
+	var grandchildren = displayGc(person, people);
 
-	alert("-Descendants- \nKids: " + kids + "\nGrandchildren: " + grandchildren + " \nGreat-Grandchildren: " );
+	alert("-Descendants- \n\nKids: " + kids + "\nGrandchildren: " + grandchildren + " \nGreat-Grandchildren: " );
 	mainMenu(person, people);
 }
 
-function getGc(x, kids, people){
-	var gC = people.filter(function(person){
-		for(var i =0; i <person.parents.length; i++){
-			if(kids[x].id == person.parents[i]){
-				x+=x
-				return gC.push(person);
-			}else{
-				return false;
-			}
-		}
-		return getGc(x, kids, people);;
-	});
+function displayGc(person, people){
+
+	var kidsArray = getKids(person,people);
+	var gC = getGc(0, kidsArray, people);
+
+
 	for(var i = 0; i <= gC.length; i++){
 		if(i=0){
 			return gC[i].firstName + " " + gC[i].lastName;
@@ -301,6 +309,27 @@ function getGc(x, kids, people){
 	}
 }
 
+function getGc(x, kidsArray, people, results = []){
+	var gC = people.filter(function(person){
+		for(var i =0; i < person.parents.length; i++){
+			if(kidsArray[x].id == person.parents[i]){
+				x++
+				return true;
+			}else{
+				return false;
+			}
+		}
+	});
+	if (gC != null){
+		gC.forEach(function(child){
+			results.push(child);
+			getGc(x, kidsArray, people, results);
+		})
+	
+	}
+	return results;
+}
+
 
 
 function getAge (person, people){
@@ -308,5 +337,4 @@ function getAge (person, people){
 	var ageDate = new Date(calculateAge);
 	return Math.abs(ageDate.getUTCFullYear() - 2017);
 }
-
 
