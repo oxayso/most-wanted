@@ -224,17 +224,25 @@ function getSiblings(person, people){
 }	
 
 function displayNextOfKin(person, people){
-	alert("Next of Kin: ");
+
+	var nextOfKin = getNextOfKin(person,people);
+
+	alert("Next of Kin: " +nextOfKin);
 	mainMenu(person, people);
 }
 
+function getNextOfKin(person, people){
+	if(person.currentSpouse[0]){
+		return getSpouse(person.currentSpouse, people);
+	}
+}
 function displayDescendants(person, people){
 
 	var kids = getKids(person, people);
 
 	var grandchildren = getGc(0, kids, people);
 
-	alert("-Descendants- \nKids: " + kids + "\nGrandchildren: \nGreat-Grandchildren: " );
+	alert("-Descendants- \nKids: " + kids + "\nGrandchildren: " + grandchildren + " \nGreat-Grandchildren: " );
 	mainMenu(person, people);
 }
 
@@ -242,11 +250,23 @@ function getGc(x, kids, people){
 	var gC = people.filter(function(person){
 		for(var i =0; i <person.parents.length; i++){
 			if(kids[x].id == person.parents[i]){
-				return getGc(x+1, kids, people);
-			};
+				x++
+				return gC.push(person);
+			}
 		}
-		return false;
+		return getGc(x, kids, people);;
 	});
+	for(var i = 0; i <= gC.length; i++){
+		if(i=0){
+			return gC[i].firstName + " " + gC[i].lastName;
+		}else if((i > 0 ) && (i != gC.length)){
+			return + ", " + gC[i].firstName + " " + gC[i].lastName;
+		}else if(i == gC.length){
+			return + ", and " + gC[i].firstName + " " + gC[i].lastName;
+		}else{
+			return "None"
+		}
+	}
 }
 
 
