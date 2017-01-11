@@ -97,7 +97,7 @@ function mainMenu(person, people){
 			displayFamily(person, people);
 
 		break;
-		case "kin":
+		case "next of kin":
 			displayNextOfKin(person, people);
 
 		break;
@@ -232,10 +232,19 @@ function displayNextOfKin(person, people){
 }
 
 function getNextOfKin(person, people){
-	if(person.currentSpouse[0]){
+	if(person.currentSpouse){
 		return getSpouse(person.currentSpouse, people);
+	}else if(getKids(person, people) != "None"){
+		return getKids(person, people);
+	}else if(person.parents[0]){
+		return getParents(person.parents, people);
+	}else if (getSiblings(person, people) != "None"){
+		return getSiblings(person, people);
+	}else{ 
+		return "None"; 
 	}
 }
+
 function displayDescendants(person, people){
 
 	var kids = getKids(person, people);
