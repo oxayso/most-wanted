@@ -129,61 +129,65 @@ function displayPersonInfo(person, people){
 
 function displayFamily(person, people){
 
-	var parents = getParents(person.parents, people);
+	var parents = displayParents(person, people);
 
-	var spouse = getSpouse(person.currentSpouse, people);
+	var spouse = displaySpouse(person, people);
 
-	var kids = getKids(person, people);
+	var kids = displayKids(person, people);
 
-	var siblings = getSiblings(person, people);
+	var siblings = displaySiblings(person, people);
 
 	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
 	mainMenu(person, people);
 }
 
-function getParents(parentsId, people){
-	if(parentsId.length == 0){
+function displayParents(person, people){
+
+	if(person.parents.length == 0){
 		return "None";
+	}else{
+
+	var parents = getParents(person.parents, people);
+
+	if(parents.length == 2){
+			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
+		}else{
+			return parents[0].firstName +" "+ parents[0].lastName;
+		}
 	}
-	else{
+}
+
+function getParents(parentsId, people){
 		var parents =[];
 		for(var i = 0; i < parentsId.length; i++){
 			parents.push(people.filter(function(person){
 				return (person.id === parentsId[i]);
 			})[0]);
 		}
-		if(parents.length == 2){
-			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
-		}else{
-			return parents[0].firstName +" "+ parents[0].lastName;
-		}
-		
-	}
-
+		return parents;
 } 
 
+function displaySpouse(person, people){
 
-function getSpouse(spouseId, people){
-	var spouseById = people.filter(function(person){
-			return (person.id === spouseId);
-	});
-	if(spouseById[0]){
-		return spouseById[0].firstName +" "+ spouseById[0].lastName;
+	var spouse = getSpouse(person.currentSpouse, people);
+
+	if(spouse[0]){
+		return spouse[0].firstName +" "+ spouse[0].lastName;
 	}else{
 		return "None";
 	}
 }
 
-
-function getKids(parent, people){
-	var kids = people.filter(function(person){
-		for(var i =0; i <person.parents.length; i++){
-			if(parent.id == person.parents[i]){
-				return true;
-			};
-		}
-		return false;
+function getSpouse(spouseId, people){
+	var spouseById = people.filter(function(person){
+			return (person.id === spouseId);
 	});
+	return spouseById;
+}
+
+function displayKids(person, people){
+
+	var kids = getKids(person, people);
 
 	if(kids.length == 4){
 		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
@@ -199,7 +203,36 @@ function getKids(parent, people){
 		return "None"
 	}
 }
+function getKids(parent, people){
+	var kids = people.filter(function(person){
+		for(var i =0; i <person.parents.length; i++){
+			if(parent.id == person.parents[i]){
+				return true;
+			};
+		}
+		return false;
+	});
+	return kids;
+}
 
+function displaySiblings(person, people){
+
+	var siblings = getSiblings(person, people);
+
+	if(siblings.length == 4){
+			return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
+			", " + siblings[2].firstName +" "+ siblings[2].lastName + ", and " + siblings[3].firstName +" "+ siblings[3].lastName;
+		}else if(siblings.length == 3){
+			return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
+			", and " + siblings[2].firstName +" "+ siblings[2].lastName;
+		}else if(siblings.length == 2){
+			return siblings[0].firstName +" "+ siblings[0].lastName + ", and " + siblings[1].firstName +" "+ siblings[1].lastName;
+		}else if(siblings.length == 1){
+			return siblings[0].firstName +" "+ siblings[0].lastName;
+		}else{
+			return "None"
+		}
+}
 function getSiblings(person, people){
 	var siblings = people.filter(function(individual){
 		if (individual.parents.includes(person.parents[0]) || individual.parents.includes(person.parents[1])){
@@ -208,19 +241,7 @@ function getSiblings(person, people){
 			return false;
 		}
 		});
-	if(siblings.length == 4){
-		return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
-		", " + siblings[2].firstName +" "+ siblings[2].lastName + ", and " + siblings[3].firstName +" "+ siblings[3].lastName;
-	}else if(siblings.length == 3){
-		return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
-		", and " + siblings[2].firstName +" "+ siblings[2].lastName;
-	}else if(siblings.length == 2){
-		return siblings[0].firstName +" "+ siblings[0].lastName + ", and " + siblings[1].firstName +" "+ siblings[1].lastName;
-	}else if(siblings.length == 1){
-		return siblings[0].firstName +" "+ siblings[0].lastName;
-	}else{
-		return "None"
-	}
+	return siblings;
 }	
 
 function displayNextOfKin(person, people){
