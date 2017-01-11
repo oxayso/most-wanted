@@ -147,32 +147,19 @@ function displayParents(person, people){
 		return "None";
 	}else{
 
-	var parents = getParents(person.parents, people);
+		var parents = getParents(person.parents, people);
 
-	/*
-	if(parents.length == 2){
-			return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
+		
+		if(parents.length == 2){
+				return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
 		}else{
 			return parents[0].firstName +" "+ parents[0].lastName;
-		}
-	}
-	*/
-		for(var i = 0; i <= gC.length; i++){
-			if(i=0){
-				return parents[i].firstName + " " + parents[i].lastName;
-			}else if((i > 0 ) && (i != gC.length)){
-				return + ", " + parents[i].firstName + " " + parents[i].lastName;
-			}else if(i == gC.length){
-				return + ", and " + parents[i].firstName + " " + parents[i].lastName;
-			}else{
-				return "None"
-			}
 		}
 	}
 }
 
 function getParents(parentsId, people){
-		var parents =[];
+		var parents = [];
 		for(var i = 0; i < parentsId.length; i++){
 			parents.push(people.filter(function(person){
 				return (person.id === parentsId[i]);
@@ -285,7 +272,7 @@ function displayDescendants(person, people){
 
 	var kids = displayKids(person, people);
 
-	var grandchildren = displayGc(person, people);
+	//var grandchildren = displayGc(person, people);
 
 	alert("-Descendants- \n\nKids: " + kids + "\nGrandchildren: " +/* grandchildren +*/ " \nGreat-Grandchildren: " );
 	mainMenu(person, people);
