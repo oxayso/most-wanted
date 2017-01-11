@@ -134,9 +134,6 @@ function displayFamily(person, people){
 	var spouse = getSpouse(person.currentSpouse, people);
 
 	var kids = getKids(person, people);
-	//for(var i = 0; i < kids.length; i++){
-		//alert(kids[i].firstName + " " + kids[i].lastName);
-	//}
 
 	//var siblings = 
 
@@ -187,7 +184,6 @@ function getKids(parent, people){
 		}
 		return false;
 	});
-	//return kids;
 	if(kids.length == 4){
 		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
 		", " + kids[2].firstName +" "+ kids[2].lastName + ", and " + kids[3].firstName +" "+ kids[3].lastName;
@@ -195,7 +191,7 @@ function getKids(parent, people){
 		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
 		", and " + kids[2].firstName +" "+ kids[2].lastName;
 	}else if(kids.length == 2){
-		return kids[0].firstName +" "+ kids[0].lastName + ", and " + kids[1].firstName +" "+ kids[1].lastName;
+		return kids[0].firstName +" "+ kids[0].lastName + " and " + kids[1].firstName +" "+ kids[1].lastName;
 	}else if(kids.length == 1){
 		return kids[0].firstName +" "+ kids[0].lastName;
 	}else{
@@ -209,8 +205,24 @@ function displayNextOfKin(person, people){
 }
 
 function displayDescendants(person, people){
-	alert("-Descendants- \nGrandchild(ren): \nGrandparent(s): \nGreat Granchild(ren): \nGreat Grantparent(s):" );
+
+	var kids = getKids(person, people);
+
+	var grandchildren = getGc(0, kids, people);
+
+	alert("-Descendants- \nKids: " + kids + "\nGrandchildren: \nGreat-Grandchildren: " );
 	mainMenu(person, people);
+}
+
+function getGc(x, kids, people){
+	var gC = people.filter(function(person){
+		for(var i =0; i <person.parents.length; i++){
+			if(kids[x].id == person.parents[i]){
+				return true getGc(x++, kids, people);
+			};
+		}
+		return false;
+	});
 }
 
 
