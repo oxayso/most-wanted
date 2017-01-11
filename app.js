@@ -282,6 +282,13 @@ function getGc(x, kids, people){
 
 
 
+function getAge (person, people){
+	var calculateAge = Date.now() - dob.getTime();
+	var ageDate = new Date(calculateAge);
+	return Math.abs(ageDate.getUTCFullYear() - 2017);
+}
+
+
 
 
 
