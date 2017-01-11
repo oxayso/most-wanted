@@ -254,13 +254,13 @@ function displayNextOfKin(person, people){
 
 function getNextOfKin(person, people){
 	if(person.currentSpouse){
-		return getSpouse(person.currentSpouse, people);
-	}else if(getKids(person, people) != "None"){
-		return getKids(person, people);
+		return displaySpouse(person, people);
+	}else if(displayKids(person, people) != "None"){
+		return displayKids(person, people);
 	}else if(person.parents[0]){
-		return getParents(person.parents, people);
-	}else if (getSiblings(person, people) != "None"){
-		return getSiblings(person, people);
+		return displayParents(person, people);
+	}else if (displaySiblings(person, people) != "None"){
+		return displaySiblings(person, people);
 	}else{ 
 		return "None"; 
 	}
@@ -304,12 +304,9 @@ function getGc(x, kids, people){
 
 
 function getAge (person, people){
-	var calculateAge = Date.now() - dob.getTime();
+	var calculateAge = Date.now() - person.dob.getTime();
 	var ageDate = new Date(calculateAge);
 	return Math.abs(ageDate.getUTCFullYear() - 2017);
 }
-
-
-
 
 
