@@ -332,9 +332,12 @@ function getGc(x, kidsArray, people, results = []){
 
 
 
-function getAge (person, people){
-	var calculateAge = Date.now() - person.dob.getTime();
-	var ageDate = new Date(calculateAge);
-	return Math.abs(ageDate.getUTCFullYear() - 2017);
+/*function calcAge(person, people){
+	var age = person.dob(byAge);
+	return person.dob - ((Date.now() 
 }
+<<<<<<< HEAD
 
+=======
+*/
+>>>>>>> 6e423d97009c5f2f7d8e3a1c7200d5971b5e809c
