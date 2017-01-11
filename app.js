@@ -250,8 +250,10 @@ function getGc(x, kids, people){
 	var gC = people.filter(function(person){
 		for(var i =0; i <person.parents.length; i++){
 			if(kids[x].id == person.parents[i]){
-				x++
+				x+=x
 				return gC.push(person);
+			}else{
+				return false;
 			}
 		}
 		return getGc(x, kids, people);;
