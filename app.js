@@ -157,15 +157,16 @@ function displayParents(person, people){
 		}
 	}
 	*/
-	for(var i = 0; i <= gC.length; i++){
-		if(i=0){
-			return parents[i].firstName + " " + parents[i].lastName;
-		}else if((i > 0 ) && (i != gC.length)){
-			return + ", " + parents[i].firstName + " " + parents[i].lastName;
-		}else if(i == gC.length){
-			return + ", and " + parents[i].firstName + " " + parents[i].lastName;
-		}else{
-			return "None"
+		for(var i = 0; i <= gC.length; i++){
+			if(i=0){
+				return parents[i].firstName + " " + parents[i].lastName;
+			}else if((i > 0 ) && (i != gC.length)){
+				return + ", " + parents[i].firstName + " " + parents[i].lastName;
+			}else if(i == gC.length){
+				return + ", and " + parents[i].firstName + " " + parents[i].lastName;
+			}else{
+				return "None"
+			}
 		}
 	}
 }
@@ -286,10 +287,11 @@ function displayDescendants(person, people){
 
 	var grandchildren = displayGc(person, people);
 
-	alert("-Descendants- \n\nKids: " + kids + "\nGrandchildren: " + grandchildren + " \nGreat-Grandchildren: " );
+	alert("-Descendants- \n\nKids: " + kids + "\nGrandchildren: " +/* grandchildren +*/ " \nGreat-Grandchildren: " );
 	mainMenu(person, people);
 }
 
+/*
 function displayGc(person, people){
 
 	var kidsArray = getKids(person,people);
@@ -332,12 +334,8 @@ function getGc(x, kidsArray, people, results = []){
 
 
 
-/*function calcAge(person, people){
+function calcAge(person, people){
 	var age = person.dob(byAge);
 	return person.dob - ((Date.now() 
 }
-<<<<<<< HEAD
-
-=======
 */
->>>>>>> 6e423d97009c5f2f7d8e3a1c7200d5971b5e809c
