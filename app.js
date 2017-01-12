@@ -1,10 +1,9 @@
 function initMostWanted(people){
-	
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
-	
-	do{	
+
+	do{
 		var SearchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
-	}while(!(SearchType == "name" || SearchType == "attributes")); 
+	}while(!(SearchType == "name" || SearchType == "attributes"));
 	switch(SearchType){
 		case "name":
 			var findPerson = getPerson(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
@@ -16,7 +15,7 @@ function initMostWanted(people){
 				var nameRestart = prompt("Would you like to restart? (If so, type 'yes'. If not, type 'no')");
 				}while(!(nameRestart == "yes" || nameRestart == "no"));
 				if(nameRestart.toLowerCase() == "yes")
-					return initMostWanted(people);
+					initMostWanted(people);
 				if(nameRestart.toLowerCase() == "no")
 					break;
 			}
@@ -32,7 +31,7 @@ function initMostWanted(people){
 			}while(!(Age == "18 & Under" || Age == "18-25" || Age == "25-50" || Age == "50+"));
 
 				var Height = prompt("Approximately how tall is this person? (In INCHES)");
-				
+
 
 				var Weight = prompt("About how much does this person weigh? (In LBS)");
 
@@ -41,9 +40,9 @@ function initMostWanted(people){
 			}while(!(EyeColor == "Brown" || EyeColor == "Blue" || EyeColor == "Hazel" || EyeColor == "Green" || EyeColor == "Black"));
 
 				var Occupation = prompt("What is their line of work? (EX: Nurse)");
-				
 
-				mainMenu(person, people);
+
+				mainMenu(people);
 		break;
 		default:
 			alert("There was an error processing your request.");
@@ -71,8 +70,8 @@ function mainMenu(person, people){
 
 
 	var displayOption = prompt("Found: " + person.firstName + " " + person.lastName +
-	 "\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
-	  "\n\nOtherwise, type 'restart' or 'quit'.");
+	"\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
+	"\n\nOtherwise, type 'restart' or 'quit'.");
 
 	switch(displayOption){
 
@@ -93,7 +92,7 @@ function mainMenu(person, people){
 
 		break;
 		case "restart":
-			initMostWanted(people); 
+			initMostWanted(people);
 
 		break;
 		case "quit":
@@ -101,15 +100,14 @@ function mainMenu(person, people){
 		default:
 			alert("There was an error processing your request.");
 			return mainMenu(person, people);
-		break;
 	}
 }
 
 function displayPersonInfo(person, people){
 	alert("Name: " +person.firstName + " " +person.lastName + "\nGender: " +person.gender+
-	 "\nTheir occupation is: "+ person.occupation + "\nBirthday: " +person.dob +
-	  "\nHeight: " +person.height + " inches" + "\nWeight: " +person.weight + " lbs." +
-	  "\nEye Color: " +person.eyeColor);
+	"\nTheir occupation is: "+ person.occupation + "\nBirthday: " +person.dob +
+	"\nHeight: " +person.height + " inches" + "\nWeight: " +person.weight + " lbs." +
+	"\nEye Color: " +person.eyeColor);
 	mainMenu(person, people);
 
 }
@@ -130,18 +128,30 @@ function displayFamily(person, people){
 
 function displayParents(person, people){
 
+	/*
 	if(person.parents.length == 0){
 		return "None";
 	}else{
-
+	*/
 		var parents = getParents(person.parents, people);
 
-		
+/*
 		if(parents.length == 2){
 				return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
 		}else{
 			return parents[0].firstName +" "+ parents[0].lastName;
 		}
+		*/
+		for(var i = 0; i < parents.length; i++){
+			if(i==0){
+				return parents[i].firstName + " " + parents[i].lastName;
+			}else if((i > 0 ) && (i != parents.length-1)){
+				return + ", " + parents[i].firstName + " " + parents[i].lastName;
+			}else if(i == parents.length-1){
+				return + ", and " + parents[i].firstName + " " + parents[i].lastName;
+			}else{
+				return "None";
+			}
 	}
 }
 
@@ -153,7 +163,7 @@ function getParents(parentsId, people){
 			})[0]);
 		}
 		return parents;
-} 
+}
 
 function displaySpouse(person, people){
 
@@ -188,7 +198,7 @@ function displayKids(person, people){
 	}else if(kids.length == 1){
 		return kids[0].firstName +" "+ kids[0].lastName;
 	}else{
-		return "None"
+		return "None";
 	}
 }
 
@@ -197,7 +207,7 @@ function getKids(parent, people){
 		for(var i =0; i <person.parents.length; i++){
 			if(parent.id == person.parents[i]){
 				return true;
-			};
+			}
 		}
 		return false;
 	});
@@ -219,7 +229,7 @@ function displaySiblings(person, people){
 		}else if(siblings.length == 1){
 			return siblings[0].firstName +" "+ siblings[0].lastName;
 		}else{
-			return "None"
+			return "None";
 		}
 }
 function getSiblings(person, people){
@@ -231,7 +241,7 @@ function getSiblings(person, people){
 		}
 		});
 	return siblings;
-}	
+}
 
 function displayNextOfKin(person, people){
 
@@ -250,8 +260,8 @@ function getNextOfKin(person, people){
 		return displayParents(person, people);
 	}else if (displaySiblings(person, people) != "None"){
 		return displaySiblings(person, people);
-	}else{ 
-		return "None"; 
+	}else{
+		return "None";
 	}
 }
 
@@ -266,19 +276,19 @@ function displayDescendants(person, people){
 	mainMenu(person, people);
 }
 
-
+/*
 function displayGc(person, people){
 
 	var kidsArray = getKids(person,people);
 	var gC = getGc(0, kidsArray, people);
 
 
-	for(var i = 0; i <= gC.length; i++){
-		if(i=0){
+	for(var i = 0; i < gC.length; i++){
+		if(i==0){
 			return gC[i].firstName + " " + gC[i].lastName;
-		}else if((i > 0 ) && (i != gC.length)){
+		}else if((i > 0 ) && (i != gC.length-1)){
 			return + ", " + gC[i].firstName + " " + gC[i].lastName;
-		}else if(i == gC.length){
+		}else if(i == gC.length-1){
 			return + ", and " + gC[i].firstName + " " + gC[i].lastName;
 		}else{
 			return "None"
@@ -302,7 +312,8 @@ function getGc(x, kidsArray, people, results = []){
 			results.push(child);
 			getGc(x, kidsArray, people, results);
 		})
-	
+
 	}
 	return results;
 }
+*/
