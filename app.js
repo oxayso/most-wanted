@@ -1,5 +1,5 @@
 function initMostWanted(people){
-	
+	//grabs all objs in data, ties directing with "data"
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
 	
 	do{	
@@ -63,23 +63,25 @@ function getPerson(firstName, lastName, people){
 	return findPerson;
 }
 
+//grabs an obs first & last name thru scanning people/data
+
 function mainMenu(person, people){
 	if(!person){
 		alert("Sorry, could not find individual.");
 		return initMostWanted(people);
 	}
-
+	//follows back to beginning prompt when user makes error
 
 	var displayOption = prompt("Found: " + person.firstName + " " + person.lastName +
 	 "\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
 	  "\n\nOtherwise, type 'restart' or 'quit'.");
 
-	switch(displayOption){
+	switch(displayOption){ // allows for multiple inputs/expressions
 
 		case "info":
 			displayPersonInfo(person, people);
 
-		break;
+		break; // ignores everything else other than what is typed
 		case "family":
 			displayFamily(person, people);
 
@@ -98,7 +100,7 @@ function mainMenu(person, people){
 		break;
 		case "quit":
 		break;
-		default:
+		default: // sets the input firmly on what we set it to be // what will happen
 			alert("There was an error processing your request.");
 			return mainMenu(person, people);
 		break;
@@ -114,6 +116,8 @@ function displayPersonInfo(person, people){
 
 }
 
+//alerts the user most of the basic info given in the objs
+
 function displayFamily(person, people){
 
 	var parents = displayParents(person, people);
@@ -127,6 +131,8 @@ function displayFamily(person, people){
 	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
 	mainMenu(person, people);
 }
+
+//alerts the user the filtered info of family relations 
 
 function displayParents(person, people){
 
@@ -144,6 +150,8 @@ function displayParents(person, people){
 		}
 	}
 }
+
+// alerts user of individual objs parents
 
 function getParents(parentsId, people){
 		var parents = [];
