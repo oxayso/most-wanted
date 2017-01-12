@@ -118,13 +118,17 @@ function displayPersonInfo(person, people){
 
 function displayFamily(person, people){
 
-	var parents = displayParents(person, people);
+	var rents = getParents(person.parents, people);
+	var parents = getNames(rents);
 
-	var spouse = displaySpouse(person, people);
+	var sigO = getSpouse(person, people);
+	var spouse = getNames(sigO);
 
-	var kids = displayKids(person, people);
+	var childs = getKids(person, people);
+	var kids = getNames(childs);
 
-	var siblings = displaySiblings(person, people);
+	var sibs = getSiblings(person, people);
+	var siblings = getNames(sibs);
 
 	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
 	mainMenu(person, people);
@@ -132,33 +136,22 @@ function displayFamily(person, people){
 
 //alerts the user the filtered info of family relations
 
-function displayParents(person, people){
-
-	/*
-	if(person.parents.length == 0){
-		return "None";
-	}else{
-	*/
-		var parents = getParents(person.parents, people);
-
-/*
-		if(parents.length == 2){
-				return parents[0].firstName +" "+ parents[0].lastName + " and " + parents[1].firstName +" "+ parents[1].lastName;
+function getNames(mortals){
+	var names;
+		if(mortals.length == 0){
+			names = "None";
 		}else{
-			return parents[0].firstName +" "+ parents[0].lastName;
-		}
-		*/
-		for(var i = 0; i < parents.length; i++){
-			if(i==0){
-				return parents[i].firstName + " " + parents[i].lastName;
-			}else if((i > 0 ) && (i != parents.length-1)){
-				return + ", " + parents[i].firstName + " " + parents[i].lastName;
-			}else if(i == parents.length-1){
-				return + ", and " + parents[i].firstName + " " + parents[i].lastName;
-			}else{
-				return "None";
+			for(var i = 0; i < mortals.length; i++){
+				if(i==0){
+					names = mortals[i].firstName + " " + mortals[i].lastName;
+				}else if((i > 0 ) && (i != mortals.length-1)){
+					names += (", " + mortals[i].firstName + " " + mortals[i].lastName);
+				}else if(i == mortals.length-1){
+					names += (", and " + mortals[i].firstName + " " + mortals[i].lastName);
+				}
 			}
-	}
+		}
+		return names;
 }
 
 // alerts user of individual objs parents
@@ -173,41 +166,11 @@ function getParents(parentsId, people){
 		return parents;
 }
 
-function displaySpouse(person, people){
-
-	var spouse = getSpouse(person.currentSpouse, people);
-
-	if(spouse[0]){
-		return spouse[0].firstName +" "+ spouse[0].lastName;
-	}else{
-		return "None";
-	}
-}
-
 function getSpouse(spouseId, people){
 	var spouseById = people.filter(function(person){
 			return (person.id === spouseId);
 	});
 	return spouseById;
-}
-
-function displayKids(person, people){
-
-	var kids = getKids(person, people);
-
-	if(kids.length == 4){
-		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
-		", " + kids[2].firstName +" "+ kids[2].lastName + ", and " + kids[3].firstName +" "+ kids[3].lastName;
-	}else if(kids.length == 3){
-		return kids[0].firstName +" "+ kids[0].lastName + ", " + kids[1].firstName +" "+ kids[1].lastName +
-		", and " + kids[2].firstName +" "+ kids[2].lastName;
-	}else if(kids.length == 2){
-		return kids[0].firstName +" "+ kids[0].lastName + " and " + kids[1].firstName +" "+ kids[1].lastName;
-	}else if(kids.length == 1){
-		return kids[0].firstName +" "+ kids[0].lastName;
-	}else{
-		return "None";
-	}
 }
 
 function getKids(parent, people){
@@ -222,24 +185,6 @@ function getKids(parent, people){
 	return kids;
 }
 
-function displaySiblings(person, people){
-
-	var siblings = getSiblings(person, people);
-
-	if(siblings.length == 4){
-			return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
-			", " + siblings[2].firstName +" "+ siblings[2].lastName + ", and " + siblings[3].firstName +" "+ siblings[3].lastName;
-		}else if(siblings.length == 3){
-			return siblings[0].firstName +" "+ siblings[0].lastName + ", " + siblings[1].firstName +" "+ siblings[1].lastName +
-			", and " + siblings[2].firstName +" "+ siblings[2].lastName;
-		}else if(siblings.length == 2){
-			return siblings[0].firstName +" "+ siblings[0].lastName + " and " + siblings[1].firstName +" "+ siblings[1].lastName;
-		}else if(siblings.length == 1){
-			return siblings[0].firstName +" "+ siblings[0].lastName;
-		}else{
-			return "None";
-		}
-}
 function getSiblings(person, people){
 	var siblings = people.filter(function(individual){
 		if (individual.parents.includes(person.parents[0]) || individual.parents.includes(person.parents[1])){
