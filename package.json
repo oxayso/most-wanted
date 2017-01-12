@@ -4,13 +4,19 @@
   "description": "A program to help you find a person in a list by inputting a name or attributes",
   "main": "app.js",
   "dependencies": {
+    "eslint": "^3.13.1",
     "install": "^0.8.4",
     "jasmine-core": "^2.5.2",
-    "karma-chrome-launcher": "^2.0.0",
     "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0"
+  },
   "scripts": {
     "test": "karma start karma.conf.js"
   },
@@ -30,7 +36,6 @@
       "semi": 1
     }
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oxayso/most-wanted.git"
