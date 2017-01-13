@@ -6,9 +6,9 @@ function initMostWanted(people){
 	}while(!(SearchType == "name" || SearchType == "attributes"));
 	switch(SearchType){
 		case "name":
-			var findPerson = getPerson(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
-			if(findPerson.length > 0){
-				mainMenu(findPerson[0], people);
+			var findPerson = getPersonByName(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
+			if(findPerson){
+				mainMenu(findPerson, people);
 			} else {
 				alert("Did not find anyone matching those perameters.");
 				do{
@@ -55,11 +55,11 @@ function initMostWanted(people){
 
 }*/
 
-function getPerson(firstName, lastName, people){
+function getPersonByName(firstName, lastName, people){
 	var findPerson = people.filter(function(person){
 		return (person.firstName.toUpperCase() === firstName.toUpperCase()) && (person.lastName.toUpperCase() === lastName.toUpperCase());
 	});
-	return findPerson;
+	return findPerson[0];
 }
 
 //grabs an obs first & last name thru scanning people/data
