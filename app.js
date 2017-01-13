@@ -121,7 +121,7 @@ function displayFamily(person, people){
 	var rents = getParents(person.parents, people);
 	var parents = getNames(rents);
 
-	var sigO = getSpouse(person, people);
+	var sigO = getSpouse(person.currentSpouse, people);
 	var spouse = getNames(sigO);
 
 	var childs = getKids(person, people);
