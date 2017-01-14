@@ -1,23 +1,17 @@
 function initMostWanted(people){
-	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
-
-	do{
-		var SearchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
-	}while(!(SearchType == "name" || SearchType == "attributes"));
-	switch(SearchType){
+	welcomeAlert();
+	var searchType = promptSearchType();
+	switch(searchType){
 		case "name":
-			var findPerson = getPersonByName(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
-			if(findPerson){
-				mainMenu(findPerson, people);
+			var person = promptName(people);
+			if(person){
+				mainMenu(person, people);
 			} else {
-				alert("Did not find anyone matching those perameters.");
+				alertCantFind();
 				do{
-				var nameRestart = prompt("Would you like to restart? (If so, type 'yes'. If not, type 'no')");
-				}while(!(nameRestart == "yes" || nameRestart == "no"));
-				if(nameRestart.toLowerCase() == "yes")
-					initMostWanted(people);
-				if(nameRestart.toLowerCase() == "no")
-					break;
+					var answer = promptRestart();
+				}while(!(answer == "yes" || answer == "no"));
+				restart(answer, people);
 			}
 		break;
 		case "attributes":
@@ -51,18 +45,59 @@ function initMostWanted(people){
 	}
 }
 
-/*function searchByAttributes(person, people){
 
-}*/
-
-function getPersonByName(firstName, lastName, people){
-	var findPerson = people.filter(function(person){
-		return (person.firstName.toUpperCase() === firstName.toUpperCase()) && (person.lastName.toUpperCase() === lastName.toUpperCase());
-	});
-	return findPerson[0];
+function welcomeAlert(){
+	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
 }
 
-//grabs an obs first & last name thru scanning people/data
+
+function promptSearchType(){
+	do{
+		var searchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
+	}while(!(searchType == "name" || searchType == "attributes"));
+	return searchType;
+}
+
+
+
+function alertCantFind(){
+	alert("Did not find anyone matching those perameters, please try again.");
+	return;
+}
+
+
+
+function promptName(people){
+	var person = getPersonByName(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
+	return person;
+}
+
+
+
+function getPersonByName(firstName, lastName, people){
+	var person = people.filter(function(person){
+		return (person.firstName.toUpperCase() === firstName.toUpperCase()) && (person.lastName.toUpperCase() === lastName.toUpperCase());
+	});
+	return person[0];
+}
+
+
+
+function promptRestart(){
+	var answer = prompt("Would you like to restart? (If so, type 'yes'. If not, type 'no')");
+	return answer;
+}
+
+
+
+function restart(answer, people){
+		if(answer.toLowerCase() == "yes")
+			initMostWanted(people);
+		if(answer.toLowerCase() == "no")
+			return;
+}
+
+
 
 function mainMenu(person, people){
 	if(!person){
