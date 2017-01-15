@@ -3,11 +3,10 @@ function initMostWanted(people){
 	var searchType = promptSearchType();
 	switch(searchType){
 		case "name":
-			var person = promptName(people);
+			var person = searchByName(people);
 			if(person){
 				mainMenu(person, people);
 			} else {
-				alertCantFind();
 				do{
 					var answer = promptRestart();
 				}while(!(answer == "yes" || answer == "no"));
@@ -15,28 +14,7 @@ function initMostWanted(people){
 			}
 		break;
 		case "attributes":
-
-			do{
-				var Gender = prompt("What is their gender? (M=Male, F=Female)");
-			}while(!(Gender == "F" || Gender == "M"));
-
-			do{
-			var Age = prompt("Approximately how old are they? Please Type: '18 & Under', '18-25', '25-50' or '50+' ");
-			}while(!(Age == "18 & Under" || Age == "18-25" || Age == "25-50" || Age == "50+"));
-
-				var Height = prompt("Approximately how tall is this person? (In INCHES)");
-
-
-				var Weight = prompt("About how much does this person weigh? (In LBS)");
-
-			do{
-				var EyeColor = prompt("What is their eye color? Options: Brown, Blue, Hazel, Green or Black");
-			}while(!(EyeColor == "Brown" || EyeColor == "Blue" || EyeColor == "Hazel" || EyeColor == "Green" || EyeColor == "Black"));
-
-				var Occupation = prompt("What is their line of work? (EX: Nurse)");
-
-
-				mainMenu(people);
+			getAttributes(people);
 		break;
 		default:
 			alert("There was an error processing your request.");
@@ -44,60 +22,101 @@ function initMostWanted(people){
 		break;
 	}
 }
-
-
 function welcomeAlert(){
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
 }
-
-
 function promptSearchType(){
 	do{
 		var searchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
 	}while(!(searchType == "name" || searchType == "attributes"));
 	return searchType;
 }
-
-
-
-function alertCantFind(){
-	alert("Did not find anyone matching those perameters, please try again.");
-	return;
-}
-
-
-
-function promptName(people){
-	var person = getPersonByName(prompt("Enter person's first name."), prompt("Enter person's last name."), people);
+function searchByName(people){
+	var person = getPersonByName(prompt("You have chosen to search by name. \n\nPlease enter the person's first name."), prompt("\nPlease enter the person's last name."), people);
 	return person;
 }
-
-
-
 function getPersonByName(firstName, lastName, people){
 	var person = people.filter(function(person){
 		return (person.firstName.toUpperCase() === firstName.toUpperCase()) && (person.lastName.toUpperCase() === lastName.toUpperCase());
 	});
 	return person[0];
 }
-
-
-
 function promptRestart(){
-	var answer = prompt("Would you like to restart? (If so, type 'yes'. If not, type 'no')");
+	var answer = prompt("Sorry, no person was found matching those perameters. \n\nWould you like to restart? (If so, type 'yes'. If not, type 'no')").toLowerCase();
 	return answer;
 }
-
-
-
 function restart(answer, people){
 		if(answer.toLowerCase() == "yes")
 			initMostWanted(people);
 		if(answer.toLowerCase() == "no")
 			return;
 }
-
-
+function getAttributes(people){
+	var gender = searchGender();
+	var age = searchAge();
+	var height = searchHeight();
+	var weight = searchWeight();
+	var eyeColor = searchEyeColor();
+	var occupation = searchOccupation();
+	searchByAttributes(gender, age, height, weight, eyeColor, occupation, people);
+}
+function searchByAttributes(people){
+	var personList = people.filter(function(person){
+		if(gender === person.gender){
+			return true;
+			if(age === age){
+				return true;
+				if(height === person.height){
+					return true;
+					if(weight === person.weight){
+						return true;
+						if(eyeColor === person.eyeColor){
+							return true;
+							if(occupation === person.occupation){
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+	return false;
+}
+function searchGender(){
+	do{
+		var gender = prompt("What is their gender? \n\nPlease enter the word 'male' or 'female'");
+	}while(!(gender.toLowerCase().trim() == "male"||gender.toLowerCase().trim() == "female"||gender.trim() == null));
+	return gender;
+}
+function searchAge(){
+	do{
+		var age = prompt("Approximately how old are they? \n\nPlease enter a number between 20 and 90");
+	}while(!(20 <= age <= 90 || age.trim() == null));
+	return age;
+}
+function searchHeight(){
+	do{
+		var height = prompt("Approximately how tall is this person? \n\nPlease enter a number for INCHES between 50 and 80");
+	}while(!(50 <= height <= 80 || height.trim() == null));
+	return height;
+}
+function searchWeight(){
+	do{
+		var weight = prompt("About how much does this person weigh? \n\nPlease enter a number for the approximate amount of pounds they weigh between 100 and 260)");
+	}while(!(100 <= weight <= 260 || weight.trim() == null));
+	return weight;
+}
+function searchEyeColor(){
+	do{
+		var eyeColor = prompt("What is their eye color? \n\nOptions: Brown, Blue, Hazel, Green or Black");
+	}while(!(eyeColor.toLowerCase() == "brown" || "blue" || "hazel" || "green" || "black"));
+	return eyeColor;
+}
+function searchOccupation(){
+		var occupation = prompt("What is their line of work? \n\nEX: Nurse");
+		return occupation;
+}
 
 function mainMenu(person, people){
 	if(!person){
