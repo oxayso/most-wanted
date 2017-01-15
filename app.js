@@ -7,18 +7,12 @@ function initMostWanted(people){
 			if(person){
 				mainMenu(person, people);
 			} else {
-				do{
-					var answer = promptRestart();
-				}while(!(answer == "yes" || answer == "no"));
-				restart(answer, people);
+				alertNoPerson();
+				initRestart(people);
 			}
 		break;
 		case "attributes":
 			getAttributes(people);
-		break;
-		default:
-			alert("There was an error processing your request.");
-			initMostWanted(people);
 		break;
 	}
 }
@@ -41,15 +35,27 @@ function getPersonByName(firstName, lastName, people){
 	});
 	return person[0];
 }
+function alertNoPerson(){
+	alert("There were no people matching the given criteria.");
+}
+function alertError(){
+	alert("Sorry, there was an error processing your request.");
+}
+function initRestart(people){
+	do{
+		var answer = promptRestart();
+	}while(!(answer == "yes" || answer == "no"));
+	restart(answer, people);
+}
 function promptRestart(){
-	var answer = prompt("Sorry, no person was found matching those perameters. \n\nWould you like to restart? (If so, type 'yes'. If not, type 'no')").toLowerCase();
+	var answer = prompt("Would you like to restart? (If so, type 'yes'. If not, type 'no')").toLowerCase();
 	return answer;
 }
 function restart(answer, people){
 		if(answer.toLowerCase() == "yes")
 			initMostWanted(people);
 		if(answer.toLowerCase() == "no")
-			return;
+			return answer;
 }
 function getAttributes(people){
 	var gender = searchGender();
@@ -60,25 +66,20 @@ function getAttributes(people){
 	var occupation = searchOccupation();
 	searchByAttributes(gender, age, height, weight, eyeColor, occupation, people);
 }
-function searchByAttributes(people){
+function searchByAttributes(gender, age, height, weight, eyeColor, occupation, people){
 	var personList = people.filter(function(person){
 		if(gender === person.gender){
 			return true;
-			if(age === age){
-				return true;
-				if(height === person.height){
-					return true;
-					if(weight === person.weight){
-						return true;
-						if(eyeColor === person.eyeColor){
-							return true;
-							if(occupation === person.occupation){
-								return true;
-							}
-						}
-					}
-				}
-			}
+		}if(age === age){
+			return true;
+		}if(height === person.height){
+			return true;
+		}if(weight === person.weight){
+			return true;
+		}if(eyeColor === person.eyeColor){
+			return true;
+		}if(occupation === person.occupation){
+			return true;
 		}
 	});
 	return false;
@@ -119,11 +120,6 @@ function searchOccupation(){
 }
 
 function mainMenu(person, people){
-	if(!person){
-		alert("Sorry, could not find individual.");
-		return initMostWanted(people);
-	}
-	//follows back to beginning prompt when user makes error
 
 	var displayOption = prompt("Found: " + person.firstName + " " + person.lastName +
 	"\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
@@ -133,23 +129,18 @@ function mainMenu(person, people){
 
 		case "info":
 			displayPersonInfo(person, people);
-
 		break; // ignores everything else other than what is typed
 		case "family":
 			displayFamily(person, people);
-
 		break;
 		case "next of kin":
 			displayNextOfKin(person, people);
-
 		break;
 		case "descendants":
 			displayDescendants(person, people);
-
 		break;
 		case "restart":
 			initMostWanted(people);
-
 		break;
 		case "quit":
 		break;
@@ -197,7 +188,9 @@ function getNames(mortals){
 		}else{
 			for(var i = 0; i < mortals.length; i++){
 				if(i==0){
-					names = mortals[i].firstName + " " + mortals[i].lastName;
+					names = (mortals[i].firstName + " " + mortals[i].lastName);
+				}else if(i==1 && mortals.length == 2){
+					names += (" and " + mortals[i].firstName + " " + mortals[i].lastName);
 				}else if((i > 0 ) && (i != mortals.length-1)){
 					names += (", " + mortals[i].firstName + " " + mortals[i].lastName);
 				}else if(i == mortals.length-1){
@@ -241,7 +234,7 @@ function getKids(parent, people){
 
 function getSiblings(person, people){
 	var siblings = people.filter(function(individual){
-		if (individual.parents.includes(person.parents[0]) || individual.parents.includes(person.parents[1])){
+		if ((individual.parents.includes(person.parents[0]) || individual.parents.includes(person.parents[1]))&& individual != person){
 			return true;
 		} else{
 			return false;
