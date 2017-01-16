@@ -255,9 +255,10 @@ function displayNextOfKin(person, people){
 
 function getNextOfKin(person, people){
 	if(person.currentSpouse){
-		return getSpouse(person, people);
-	}else if(getKids(person, people) != "None"){
-		return displayKids(person, people);
+		return getPersonById([person.currentSpouse], people);
+	}else if(getPersonByParents(person, person.id, people) != []){
+		var kids = getPersonByParents(person, person.id, people);
+		return getNames()
 	}else if(person.parents[0]){
 		return displayParents(person, people);
 	}else if (displaySiblings(person, people) != "None"){
