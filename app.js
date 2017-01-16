@@ -12,6 +12,7 @@ function initMostWanted(people){
 			}
 		break;
 		case "attributes":
+			alertAttributes();
 			var individual = getAttributes(people);
 			if(individual.length > 0){
 				mainMenu(individual, people);
@@ -64,11 +65,17 @@ function restart(answer, people){
 		if(answer.toLowerCase() == "no")
 			return answer;
 }
+function alertAttributes(){
+	alert("You have chosen to search a person by attributes. \n\n If at any time you do not know the answer, please type 'next'.");
+}
 function getAttributes(people){
 	var gender = searchGender();
-	var age = Number(searchAge());
-	var height = Number(searchHeight());
-	var weight = Number(searchWeight());
+	var age = searchAge();
+	age = parseInt(age);
+	var height = searchHeight();
+	height = parseInt(height);
+	var weight = searchWeight();
+	weight = parseInt(weight);
 	var eyeColor = searchEyeColor();
 	var occupation = searchOccupation();
 
@@ -79,7 +86,7 @@ function searchByAttributes(gender, age, height, weight, eyeColor, occupation, p
 	var personList = people.filter(function(person){
 		if(gender === person.gender){
 			return true;
-		}if(age === getAge(person.dob, people)){
+		}if((age + 3 || age - 3) === getAge(person.dob, people)){
 			return true;
 		}if(height === person.height){
 			return true;
@@ -102,29 +109,37 @@ function searchGender(){
 function searchAge(){
 	do{
 		var age = prompt("Approximately how old are they? \n\nPlease enter a number between 20 and 90");
-	}while(!((20 <= age <= 90) || (age.trim() == "next")));
+	}while(!((20 <= age && age <= 90) || (age.toLowerCase().trim() == "next")));
 	return age;
 }
 function searchHeight(){
 	do{
 		var height = prompt("Approximately how tall is this person? \n\nPlease enter a number for INCHES between 50 and 80");
-	}while(!(50 <= height <= 80 || height.trim() == "next"));
+	}while(!((50 <= height && height <= 80) || height.toLowerCase().trim() == "next"));
 	return height;
 }
 function searchWeight(){
 	do{
 		var weight = prompt("About how much does this person weigh? \n\nPlease enter a number for the approximate amount of pounds they weigh between 100 and 260)");
-	}while(!(100 <= weight <= 260 || weight.trim() == "next"));
+	}while(!((100 <= weight && weight <= 260) || weight.toLowerCase().trim() == "next"));
 	return weight;
 }
 function searchEyeColor(){
 	do{
 		var eyeColor = prompt("What is their eye color? \n\nOptions: Brown, Blue, Hazel, Green or Black");
-	}while(!(eyeColor.toLowerCase() == "brown" || eyeColor.toLowerCase() == "blue" || eyeColor.toLowerCase() == "hazel" || eyeColor.toLowerCase() == "green" || eyeColor.toLowerCase() == "black"));
+	}while(!(eyeColor.toLowerCase() == "brown" || eyeColor.toLowerCase() == "blue" ||
+	eyeColor.toLowerCase() == "hazel" || eyeColor.toLowerCase() == "green" ||
+	eyeColor.toLowerCase() == "black" || eyeColor.toLowerCase() == "next"));
 	return eyeColor;
 }
 function searchOccupation(){
+	do{
 		var occupation = prompt("What is their line of work? \n\nEX: Nurse");
+	}while(!(occupation.toLowerCase() == "nurse" || occupation.toLowerCase() == "programmer" ||
+	occupation.toLowerCase() == "assistant" || occupation.toLowerCase() == "politician" ||
+	occupation.toLowerCase() == "doctor" || occupation.toLowerCase() == "landscaper" ||
+	occupation.toLowerCase() == "architect" ||occupation.toLowerCase() == "student" ||
+	occupation.toLowerCase() == "next"));
 		return occupation;
 }
 
