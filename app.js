@@ -185,16 +185,16 @@ function displayPersonInfo(person, people){
 
 function displayFamily(person, people){
 
-	var rents = getParents(person.parents, people);
+	var rents = getPersonById(person.parents, people);
 	var parents = getNames(rents);
 
-	var sigO = getSpouse(person.currentSpouse, people);
+	var sigO = getPersonById([person.currentSpouse], people);
 	var spouse = getNames(sigO);
 
-	var childs = getKids(person, people);
+	var childs = getPersonByParents(person, person.id, people);
 	var kids = getNames(childs);
 
-	var sibs = getSiblings(person, people);
+	var sibs = getPersonByParents(person, person.parents[0], people);
 	var siblings = getNames(sibs);
 
 	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
@@ -221,44 +221,28 @@ function getNames(mortals){
 		return names;
 }
 
-function getParents(parentsId, people){
-		var parents = [];
-		for(var i = 0; i < parentsId.length; i++){
-			parents.push(people.filter(function(person){
-				return (person.id === parentsId[i]);
-			})[0]);
+function getPersonById(personId, people){
+	var personById = people.filter(function(person){
+		for(var i =0; i <personId.length; i++){
+			if(person.id === personId[i]){
+				return true;
+			}
 		}
-		return parents;
-}
-
-function getSpouse(spouseId, people){
-	var spouseById = people.filter(function(person){
-			return (person.id === spouseId);
+		return false;
 	});
-	return spouseById;
+	return personById;
 }
 
-function getKids(parent, people){
+function getPersonByParents(oldPerson, parentId, people){
 	var kids = people.filter(function(person){
 		for(var i =0; i <person.parents.length; i++){
-			if(parent.id == person.parents[i]){
+			if((parentId == person.parents[i]) && oldPerson != person){
 				return true;
 			}
 		}
 		return false;
 	});
 	return kids;
-}
-
-function getSiblings(person, people){
-	var siblings = people.filter(function(individual){
-		if ((individual.parents.includes(person.parents[0]) || individual.parents.includes(person.parents[1]))&& individual != person){
-			return true;
-		} else{
-			return false;
-		}
-		});
-	return siblings;
 }
 
 function displayNextOfKin(person, people){
