@@ -12,7 +12,14 @@ function initMostWanted(people){
 			}
 		break;
 		case "attributes":
-			getAttributes(people);
+			var individual = getAttributes(people);
+			if(individual.length > 0){
+				mainMenu(individual, people);
+			}else{
+				alertNoPerson();
+				initRestart(people);
+			}
+
 		break;
 	}
 }
@@ -59,19 +66,21 @@ function restart(answer, people){
 }
 function getAttributes(people){
 	var gender = searchGender();
-	var age = searchAge();
-	var height = searchHeight();
-	var weight = searchWeight();
+	var age = Number(searchAge());
+	var height = Number(searchHeight());
+	var weight = Number(searchWeight());
 	var eyeColor = searchEyeColor();
 	var occupation = searchOccupation();
-	searchByAttributes(gender, age, height, weight, eyeColor, occupation, people);
+
+	var attributes = searchByAttributes(gender, age, height, weight, eyeColor, occupation, people);
+	return attributes;
 }
 function searchByAttributes(gender, age, height, weight, eyeColor, occupation, people){
 	var personList = people.filter(function(person){
 		if(gender === person.gender){
 			return true;
-		}if(age === age){
-			return true;
+		/*}if(age === age){
+			return true;*/
 		}if(height === person.height){
 			return true;
 		}if(weight === person.weight){
@@ -82,36 +91,36 @@ function searchByAttributes(gender, age, height, weight, eyeColor, occupation, p
 			return true;
 		}
 	});
-	return false;
+	return personList;
 }
 function searchGender(){
 	do{
 		var gender = prompt("What is their gender? \n\nPlease enter the word 'male' or 'female'");
-	}while(!(gender.toLowerCase().trim() == "male"||gender.toLowerCase().trim() == "female"||gender.trim() == null));
+	}while(!((gender.toLowerCase().trim() == "male")||(gender.toLowerCase().trim() == "female")||(gender.trim() == "next")));
 	return gender;
 }
 function searchAge(){
 	do{
 		var age = prompt("Approximately how old are they? \n\nPlease enter a number between 20 and 90");
-	}while(!(20 <= age <= 90 || age.trim() == null));
+	}while(!((20 <= age <= 90) || (age.trim() == "next")));
 	return age;
 }
 function searchHeight(){
 	do{
 		var height = prompt("Approximately how tall is this person? \n\nPlease enter a number for INCHES between 50 and 80");
-	}while(!(50 <= height <= 80 || height.trim() == null));
+	}while(!(50 <= height <= 80 || height.trim() == "next"));
 	return height;
 }
 function searchWeight(){
 	do{
 		var weight = prompt("About how much does this person weigh? \n\nPlease enter a number for the approximate amount of pounds they weigh between 100 and 260)");
-	}while(!(100 <= weight <= 260 || weight.trim() == null));
+	}while(!(100 <= weight <= 260 || weight.trim() == "next"));
 	return weight;
 }
 function searchEyeColor(){
 	do{
 		var eyeColor = prompt("What is their eye color? \n\nOptions: Brown, Blue, Hazel, Green or Black");
-	}while(!(eyeColor.toLowerCase() == "brown" || "blue" || "hazel" || "green" || "black"));
+	}while(!(eyeColor.toLowerCase() == "brown" || eyeColor.toLowerCase() == "blue" || eyeColor.toLowerCase() == "hazel" || eyeColor.toLowerCase() == "green" || eyeColor.toLowerCase() == "black"));
 	return eyeColor;
 }
 function searchOccupation(){
@@ -125,11 +134,11 @@ function mainMenu(person, people){
 	"\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
 	"\n\nOtherwise, type 'restart' or 'quit'.");
 
-	switch(displayOption){ // allows for multiple inputs/expressions
+	switch(displayOption){
 
 		case "info":
 			displayPersonInfo(person, people);
-		break; // ignores everything else other than what is typed
+		break;
 		case "family":
 			displayFamily(person, people);
 		break;
@@ -144,7 +153,7 @@ function mainMenu(person, people){
 		break;
 		case "quit":
 		break;
-		default: // sets the input firmly on what we set it to be // what will happen
+		default:
 			alert("There was an error processing your request.");
 			return mainMenu(person, people);
 	}
@@ -158,8 +167,6 @@ function displayPersonInfo(person, people){
 	mainMenu(person, people);
 
 }
-
-//alerts the user most of the basic info given in the objs
 
 function displayFamily(person, people){
 
@@ -178,8 +185,6 @@ function displayFamily(person, people){
 	alert("-The " +person.lastName+ " Family- \nParent(s): " + parents + "\nSpouse: " + spouse + "\nSiblings: " +siblings+ "\nKid(s): " + kids);
 	mainMenu(person, people);
 }
-
-//alerts the user the filtered info of family relations
 
 function getNames(mortals){
 	var names;
@@ -200,8 +205,6 @@ function getNames(mortals){
 		}
 		return names;
 }
-
-// alerts user of individual objs parents
 
 function getParents(parentsId, people){
 		var parents = [];
@@ -253,8 +256,8 @@ function displayNextOfKin(person, people){
 
 function getNextOfKin(person, people){
 	if(person.currentSpouse){
-		return displaySpouse(person, people);
-	}else if(displayKids(person, people) != "None"){
+		return getSpouse(person, people);
+	}else if(getKids(person, people) != "None"){
 		return displayKids(person, people);
 	}else if(person.parents[0]){
 		return displayParents(person, people);
@@ -265,12 +268,22 @@ function getNextOfKin(person, people){
 	}
 }
 
+/*
+function getAge(dateString, person, people) {
+    var today = new Date();
+    var dob = new Date(dateString);
+    var age = today.getFullYear() - dob.getFullYear();
+    var m = today.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+    return age;
+}
+*/
 
 function displayDescendants(person, people){
 
 	var kids = displayKids(person, people);
-
-	//var grandchildren = displayGc(person, people);
 
 	alert("-Descendants- \n\nKids: " + kids + "\nGrandchildren: " +/* grandchildren +*/ " \nGreat-Grandchildren: " );
 	mainMenu(person, people);
