@@ -79,8 +79,8 @@ function searchByAttributes(gender, age, height, weight, eyeColor, occupation, p
 	var personList = people.filter(function(person){
 		if(gender === person.gender){
 			return true;
-		/*}if(age === age){
-			return true;*/
+		}if(age === getAge(person.dob, people)){
+			return true;
 		}if(height === person.height){
 			return true;
 		}if(weight === person.weight){
@@ -268,10 +268,9 @@ function getNextOfKin(person, people){
 	}
 }
 
-/*
-function getAge(dateString, person, people) {
+function getAge(personDate, people) {
     var today = new Date();
-    var dob = new Date(dateString);
+    var dob = new Date(personDate);
     var age = today.getFullYear() - dob.getFullYear();
     var m = today.getMonth() - dob.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
@@ -279,7 +278,6 @@ function getAge(dateString, person, people) {
     }
     return age;
 }
-*/
 
 function displayDescendants(person, people){
 
