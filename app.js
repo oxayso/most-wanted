@@ -1,11 +1,11 @@
 function initMostWanted(people){
-	welcomeAlert();
-	var searchType = promptSearchType();
+	DisplayWelcome();
+	var searchType = PromptSearchType();
 	switch(searchType){
 		case "name":
-			var person = searchByName(people);
+			var person = SearchByName(people);
 			if(person){
-				mainMenu(person, people);
+				ShowMainMenu(person, people);
 			} else {
 				alertNoPerson();
 				initRestart(people);
@@ -24,16 +24,16 @@ function initMostWanted(people){
 		break;
 	}
 }
-function welcomeAlert(){
+function DisplayWelcome(){
 	alert("Welcome to Most Wanted! Please follow the prompts to pursue the information for the person you seek.");
 }
-function promptSearchType(){
+function PromptSearchType(){
 	do{
 		var searchType = prompt("Would you like to search by name or attributes? Enter 'name' or 'attributes'.");
 	}while(!(searchType == "name" || searchType == "attributes"));
 	return searchType;
 }
-function searchByName(people){
+function SearchByName(people){
 	var person = getPersonByName(prompt("You have chosen to search by name. \n\nPlease enter the person's first name."), prompt("\nPlease enter the person's last name."), people);
 	return person;
 }
@@ -143,7 +143,7 @@ function searchOccupation(){
 		return occupation;
 }
 
-function mainMenu(person, people){
+function ShowMainMenu(person, people){
 
 	var displayOption = prompt("Found: " + person.firstName + " " + person.lastName +
 	"\n\nDo you want to know their 'info', 'family', 'next of kin', or 'descendants'? Please type what you'd like." +
@@ -267,10 +267,14 @@ function getNextOfKin(person, people){
 		return "None";
 	}
 }
+function sortByAge(){
 
-function getAge(personDate, people) {
+}
+
+
+function getAge(person, people) {
     var today = new Date();
-    var dob = new Date(personDate);
+    var dob = new Date(person);
     var age = today.getFullYear() - dob.getFullYear();
     var m = today.getMonth() - dob.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
