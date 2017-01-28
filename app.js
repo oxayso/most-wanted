@@ -158,7 +158,7 @@ function ShowMainMenu(person, people){
 			DisplayFamily(person, people);
 		break;
 		case "next of kin":
-			//DisplayNextOfKin(person, people);
+			DisplayNextOfKin(person, people);
 		break;
 		case "descendants":
 			DisplayDescendants(person, people);
@@ -245,7 +245,7 @@ function GetPersonByParents(oldPerson, parentId, people){
 	return kids;
 }
 
-/*function DisplayNextOfKin(person, people){
+function DisplayNextOfKin(person, people){
 
 	var nextOfKin = GetNextOfKin(person,people);
 
@@ -266,10 +266,10 @@ function GetNextOfKin(person, people){
 	}else{
 		return "None";
 	}
-}*/
+}
 
 function SortByAge(){
-
+	
 }
 
 
