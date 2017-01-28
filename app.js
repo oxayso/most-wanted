@@ -235,7 +235,7 @@ function GetPersonById(personId, people){
 
 function GetPersonByParents(oldPerson, parentId, people){
 	var kids = people.filter(function(person){
-		for(var i =0; i <person.parents.length; i++){
+		for(var i = 0; i <person.parents.length; i++){
 			if((parentId == person.parents[i]) && oldPerson != person){
 				return true;
 			}
@@ -268,17 +268,22 @@ function GetNextOfKin(person, people){
 	}
 }
 
-function SortByAge(){
-	
+function SortByAge(list){
+	var kids = list.filter(function(person){
+		var personAge = GetAge(person);
+
+	});
+
+	return kids;
 }
 
 
-function GetAge(person, people) {
+function GetAge(person) {
     var today = new Date();
     var dob = new Date(person);
     var age = today.getFullYear() - dob.getFullYear();
-    var m = today.getMonth() - dob.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+    var month = today.getMonth() - dob.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < dob.getDate())) {
         age--;
     }
     return age;
